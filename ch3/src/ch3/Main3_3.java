@@ -2,6 +2,7 @@ package ch3;
 
 /*
  * 波かっこを省略した記述
+ * ブロック中の波かっこを省略するのは推奨されない
  */
 public class Main3_3 {
 	public static void main(String args) {
