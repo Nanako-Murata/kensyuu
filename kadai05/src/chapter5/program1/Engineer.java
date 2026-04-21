@@ -2,10 +2,11 @@ package chapter5.program1;
 
 //エンジニア
 public class Engineer extends Employee {
+	// 属性
 	// 使用言語
 	// java, python, other lauguageのいずれか
 	String language;
-	String department = "エンジニア";
+	static String department = "エンジニア";
 
 	// 開発実施
 	public void develop() {
@@ -14,7 +15,7 @@ public class Engineer extends Employee {
 
 	// 情報表示
 	public void expressInfo() {
-		System.out.println(this.name + ":" + department);
+		System.out.println(this.name + ":" + department + " 使用言語:" + this.language);
 	}
 
 }
