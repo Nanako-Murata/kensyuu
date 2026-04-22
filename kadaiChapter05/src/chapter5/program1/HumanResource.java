@@ -13,7 +13,7 @@ public class HumanResource extends Employee {
 		if (result < 3) {
 			System.out.println("面接を行い、結果は採用だった");
 			// ここにMOAT methodを追記
-			BT.makeEmployee("人事部");
+			BT.makeEmployee(this.getClass());
 		} else {
 			System.out.println("面接を行い、結果は不採用だった");
 		}

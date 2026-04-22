@@ -48,9 +48,9 @@ public class BT {
 	/*
 	 * 従業員作成メソッド 人事部のみアクセスできるようにする
 	 */
-	public static void makeEmployee(String caller) {
+	public static void makeEmployee(Object caller) {
 
-		if (caller == "人事部") {
+		if (caller instanceof HumanResource) {
 			System.out.println("新人の配属先を検討中");
 			int haizoku = new java.util.Random().nextInt(3);
 			if (haizoku == 0) {
