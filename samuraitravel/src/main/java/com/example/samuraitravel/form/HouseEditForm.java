@@ -1,0 +1,38 @@
+package com.example.samuraitravel.form;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class HouseEditForm {
+	@NotNull
+	private Integer id;
+	@NotBlank(message="民泊名を入力してください")
+	private String name;
+
+	private MultipartFile imageFile;
+
+	@NotNull(message="宿泊料金を入力してください")
+	@Min(value =1, message="宿泊料金は1円以上に設定して下さい")
+	private Integer price;
+	
+	@NotNull(message="定員を入力してください")
+	@Min(value=1, message="定員は1名以上に設定して下さい")
+	private Integer capacity;
+
+    @NotBlank(message = "郵便番号を入力してください。")
+    private String postalCode;
+
+    @NotBlank(message = "住所を入力してください。")
+    private String address;
+
+    @NotBlank(message = "電話番号を入力してください。")
+    private String phoneNumber;
+
+}
