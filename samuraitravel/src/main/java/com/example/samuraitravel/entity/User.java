@@ -48,11 +48,14 @@ public class User {
 
 	@Column(name = "enabled")
 	private Boolean enabled;
-
-	@Column(name = "created_at", insertable = false, updatable = false)
-	private Timestamp createdAt;
-
-	@Column(name = "update_at", insertable = false, updatable = false)
-	private Timestamp updataAt;
+	/*
+	 * databaseにないデータをコメントアウトで隠す
+	 * 
+	 * @Column(name = "created_at", insertable = false, updatable = false) private
+	 * Timestamp createdAt;
+	 * 
+	 * @Column(name = "update_at", insertable = false, updatable = false) private
+	 * Timestamp updatedAt;
+	 */
 
 }

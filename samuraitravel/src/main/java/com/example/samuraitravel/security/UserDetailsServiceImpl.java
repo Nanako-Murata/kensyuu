@@ -14,7 +14,7 @@ import com.example.samuraitravel.entity.User;
 import com.example.samuraitravel.repository.UserRepository;
 
 @Service
-public class UserDetailsServiceImpl {
+public class UserDetailsServiceImpl implements UserDetailsService {
 	private final UserRepository userRepository;
 
 	public UserDetailsServiceImpl(UserRepository userRepository) {
@@ -26,6 +26,9 @@ public class UserDetailsServiceImpl {
 
 	    try {
 	        User user = userRepository.findByEmail(email);
+	        if (user == null) {
+	            throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
+	        }
 
 	        String userRoleName = user.getRole().getName();
 
