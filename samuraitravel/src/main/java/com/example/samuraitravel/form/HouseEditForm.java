@@ -17,6 +17,9 @@ public class HouseEditForm {
 	private String name;
 
 	private MultipartFile imageFile;
+	
+	@NotNull(message = "説明を入力してください")
+	private String description;
 
 	@NotNull(message="宿泊料金を入力してください")
 	@Min(value =1, message="宿泊料金は1円以上に設定して下さい")
