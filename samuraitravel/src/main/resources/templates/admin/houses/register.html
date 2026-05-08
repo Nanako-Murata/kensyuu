@@ -7,13 +7,13 @@
 <th:block th:replace="~{fragment :: meta}"></th:block>
 <th:block th:replace="~{fragment :: styles}"></th:block>
 
-<title>豌大ｮｿ逋ｻ骭ｲ</title>
+<title>民泊新規登録</title>
 </head>
 
 <body>
 	<div class="samuraitraveltravel-wrapper">
 
-		<!-- 繝倥ャ繝�繝ｼ -->
+
 		<div th:replace="~{fragment :: header}"></div>
 
 		<main>
@@ -25,13 +25,13 @@
 						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';"
 							aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a th:href="@{/admin/houses}">豌大ｮｿ荳�隕ｧ</a>
+								<li class="breadcrumb-item"><a th:href="@{/admin/houses}">民泊一覧</a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">豌大ｮｿ逋ｻ骭ｲ</li>
+								<li class="breadcrumb-item active" aria-current="page">民泊登録</li>
 							</ol>
 						</nav>
 
-						<h1 class="mb-4 text-center">豌大ｮｿ逋ｻ骭ｲ</h1>
+						<h1 class="mb-4 text-center">民泊登録</h1>
 
 						<form method="post" th:action="@{/admin/houses/create}"
 							th:object="${houseRegisterForm}" enctype="multipart/form-data">
@@ -39,7 +39,7 @@
 							<!-- 豌大ｮｿ蜷� -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">豌大ｮｿ蜷�</label>
+									<label class="fw-bold">民泊名</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('name')}"
@@ -52,7 +52,7 @@
 							<!-- 逕ｻ蜒� -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">豌大ｮｿ逕ｻ蜒�</label>
+									<label class="fw-bold">画像</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('imageFile')}"
@@ -67,7 +67,7 @@
 							<!-- 隱ｬ譏� -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">隱ｬ譏�</label>
+									<label class="fw-bold">説明</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('description')}"
@@ -80,7 +80,7 @@
 							<!-- 譁咎�� -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">螳ｿ豕頑侭驥托ｼ亥���ｼ�</label>
+									<label class="fw-bold">宿泊料金(単位：円)</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('price')}"
@@ -92,7 +92,7 @@
 							<!-- 螳壼藤 -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">螳壼藤�ｼ井ｺｺ�ｼ�</label>
+									<label class="fw-bold">定員(単位：人)</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('capacity')}"
@@ -105,7 +105,7 @@
 							<!-- 驛ｵ萓ｿ逡ｪ蜿ｷ -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">驛ｵ萓ｿ逡ｪ蜿ｷ</label>
+									<label class="fw-bold">郵便番号</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('postalCode')}"
@@ -118,7 +118,7 @@
 							<!-- 菴乗園 -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">菴乗園</label>
+									<label class="fw-bold">住所</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('address')}"
@@ -130,7 +130,7 @@
 							<!-- 髮ｻ隧ｱ逡ｪ蜿ｷ -->
 							<div class="row mb-3">
 								<div class="col-md-4">
-									<label class="fw-bold">髮ｻ隧ｱ逡ｪ蜿ｷ</label>
+									<label class="fw-bold">電話番号</label>
 								</div>
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('phoneNumber')}"
@@ -142,7 +142,7 @@
 
 							<!-- 逋ｻ骭ｲ繝懊ち繝ｳ -->
 							<div class="d-flex justify-content-center my-4">
-								<button type="submit" class="btn btn-primary w-50">逋ｻ骭ｲ</button>
+								<button type="submit" class="btn btn-primary w-50">登録</button>
 							</div>
 
 						</form>

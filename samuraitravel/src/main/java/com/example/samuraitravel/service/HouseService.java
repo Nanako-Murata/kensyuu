@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class HouseService {
 		this.houseRepository = houseRepository;
 	}
 
+	// =========================================
+	// 新規登録
+	// =========================================
 	@Transactional
 	public void create(HouseRegisterForm form) {
 
@@ -32,23 +36,22 @@ public class HouseService {
 
 		if (imageFile != null && !imageFile.isEmpty()) {
 
-			String imageName = imageFile.getOriginalFilename();
-			String hashed = generateNewFileName(imageName);
+			String originalFileName = imageFile.getOriginalFilename();
+			String fileName = generateNewFileName(originalFileName);
 
-			// ★絶対ここにする（プロジェクト直下にstorage）
 			Path uploadPath = Paths.get(System.getProperty("user.dir"), "storage");
 
 			try {
 				Files.createDirectories(uploadPath);
 
-				Path filePath = uploadPath.resolve(hashed);
+				Path filePath = uploadPath.resolve(fileName);
 				Files.copy(imageFile.getInputStream(), filePath);
 
 			} catch (IOException e) {
 				throw new RuntimeException("画像保存失敗", e);
 			}
 
-			house.setImageName(hashed);
+			house.setImageName(fileName);
 		}
 
 		house.setName(form.getName());
@@ -62,29 +65,55 @@ public class HouseService {
 		houseRepository.save(house);
 	}
 
-	// UUIDでファイル名生成
-	public String generateNewFileName(String fileName) {
-		String[] fileNames = fileName.split("\\.");
+	// =========================================
+	// 更新
+	// =========================================
+	@Transactional
+	public void update(HouseEditForm form) {
 
-		for (int i = 0; i < fileNames.length - 1; i++) {
-			fileNames[i] = UUID.randomUUID().toString();
-		}
+		House house = houseRepository.getReferenceById(form.getId());
 
-		return String.join(".", fileNames);
+		house.setName(form.getName());
+		house.setDescription(form.getDescription());
+		house.setPrice(form.getPrice());
+		house.setCapacity(form.getCapacity());
+		house.setPostalCode(form.getPostalCode());
+		house.setAddress(form.getAddress());
+		house.setPhoneNumber(form.getPhoneNumber());
+
+		houseRepository.save(house);
 	}
 
-	public void update(HouseEditForm houseEditForm) {
+	// =========================================
+	// 最新10件
+	// =========================================
+	public List<House> findTop10() {
+		return houseRepository.findTop10ByOrderByCreatedAtDesc();
+	}
 
-	    House house = houseRepository.getReferenceById(houseEditForm.getId());
+	// =========================================
+	// エリア検索
+	// =========================================
+	public List<House> findByAddressLike(String area) {
+		return houseRepository.findByAddressContaining(area);
+	}
 
-	    house.setName(houseEditForm.getName());
-	    house.setDescription(houseEditForm.getDescription());
-	    house.setPrice(houseEditForm.getPrice());
-	    house.setCapacity(houseEditForm.getCapacity());
-	    house.setPostalCode(houseEditForm.getPostalCode());
-	    house.setAddress(houseEditForm.getAddress());
-	    house.setPhoneNumber(houseEditForm.getPhoneNumber());
+	// =========================================
+	// ファイル名生成（UUID）
+	// =========================================
+	public String generateNewFileName(String fileName) {
 
-	    houseRepository.save(house);
+		String extension = "";
+
+		int dotIndex = fileName.lastIndexOf(".");
+		if (dotIndex != -1) {
+			extension = fileName.substring(dotIndex);
+		}
+
+		return UUID.randomUUID().toString() + extension;
+	}
+
+	public House findById(Integer id) {
+		return houseRepository.findById(id).orElseThrow(() -> new RuntimeException("House not found"));
 	}
 }

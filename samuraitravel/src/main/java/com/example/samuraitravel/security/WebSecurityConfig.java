@@ -8,30 +8,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests(
-				(requests) -> requests.requestMatchers("/login", "/signup/**", "/css/**", "/images/**", "/").permitAll()
-						// すべてのユーザーにアクセスを許可するURL
-
-						.requestMatchers("/admin/**").hasRole("ADMIN")
-						// 管理者にのみアクセスを許可するURL
-
-						.requestMatchers("/user/**").authenticated() // ←追加
-						.anyRequest().authenticated()
-		// 上記以外はログイン必須
-		).formLogin((form) -> form.loginPage("/login") // ログインページ
-				.loginProcessingUrl("/login") // ログイン処理URL
-				.defaultSuccessUrl("/?loggedIn") // 成功時
-				.failureUrl("/login?error") // 失敗時
-				.permitAll()).logout((logout) -> logout.logoutSuccessUrl("/?loggedOut") // ログアウト後
-						.permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll().anyRequest().authenticated())
+				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
+						.defaultSuccessUrl("/?loggedIn", true).failureUrl("/login?error").permitAll())
+				.logout(logout -> logout.logoutSuccessUrl("/?loggedOut").permitAll());
 
 		return http.build();
 	}
@@ -39,5 +29,10 @@ public class WebSecurityConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/storage/**").addResourceLocations("file:storage/");
 	}
 }
