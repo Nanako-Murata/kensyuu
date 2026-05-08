@@ -15,30 +15,31 @@ import com.example.samuraitravel.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
 	private final UserRepository userRepository;
 
 	public UserDetailsServiceImpl(UserRepository userRepository) {
-	    this.userRepository = userRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-	    try {
-	        User user = userRepository.findByEmail(email);
-	        if (user == null) {
-	            throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
-	        }
+		try {
+			User user = userRepository.findByEmail(email);
+			if (user == null) {
+				throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
+			}
 
-	        String userRoleName = user.getRole().getName();
+			String userRoleName = user.getRole().getName();
 
-	        Collection<GrantedAuthority> authorities = new ArrayList<>();
-	        authorities.add(new SimpleGrantedAuthority(userRoleName));
+			Collection<GrantedAuthority> authorities = new ArrayList<>();
+			authorities.add(new SimpleGrantedAuthority(userRoleName));
 
-	        return new UserDetailsImpl(user, authorities);
+			return new UserDetailsImpl(user, authorities);
 
-	    } catch (Exception e) {
-	        throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
-	    }
+		} catch (Exception e) {
+			throw new UsernameNotFoundException("ユーザーが見つかりませんでした。");
+		}
 	}
 }

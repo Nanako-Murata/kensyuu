@@ -24,17 +24,13 @@ public class BT {
 		this.companyName = name;
 	}
 
-	// 従業員リスト
 	/*
-
-	public static void allEmps() {
-		ArrayList<String> allEmpsName = new ArrayList<String>();
-		allEmpsName.add(HumanResource.name);
-		allEmpsName.add(Sales.name);
-		allEmpsName.add(Engineer.name);
-
-	}
-	*/
+	 * 
+	 * public static void empList(Employee... name) { Set<String> empsName = new
+	 * HashSet<>(); empsName.add(Employee.name);
+	 * 
+	 * }
+	 */
 
 	// 部署リスト
 	public static void dptList() {
@@ -52,26 +48,37 @@ public class BT {
 	/*
 	 * 従業員作成メソッド 人事部のみアクセスできるようにする
 	 */
-	public static void makeEmployee(Object instance) {
-		if (instance instanceof HumanResource) {
-			int haizoku = new java.util.Random().nextInt(3);
+	public static void makeEmployee(String caller) {
 
+		if (caller == "人事部") {
+			System.out.println("新人の配属先を検討中");
+			int haizoku = new java.util.Random().nextInt(3);
 			if (haizoku == 0) {
-				HumanResource hr = new HumanResource();
-			}
-			if (haizoku == 1) {
-				Sales sl = new Sales();
+				HumanResource newHr = new HumanResource();
+				System.out.println("新人を人事部に配属した");
+				newHr.name = "new person";
+				newHr.expressInfo();
+			} else if (haizoku == 1) {
+				Sales newSl = new Sales();
+				System.out.println("新人を営業に配属した");
+				newSl.name = "new person";
+				newSl.expressInfo();
+
 			} else {
-				Engineer en = new Engineer();
+				Engineer newEn = new Engineer();
+				System.out.println("新人をエンジニアにした");
+				newEn.name = "new person";
+
 				int usingLanguage = new java.util.Random().nextInt(3);
 				if (usingLanguage == 0) {
-					en.language = "Java";
+					newEn.language = "Java";
 				}
 				if (usingLanguage == 1) {
-					en.language = "Python";
+					newEn.language = "Python";
 				} else {
-					en.language = "other language";
+					newEn.language = "other language";
 				}
+				newEn.expressInfo();
 
 			}
 		}

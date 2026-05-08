@@ -16,34 +16,28 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-	    http
-	        .authorizeHttpRequests((requests) -> requests
-	        		.requestMatchers("/login", "/signup", "/css/**", "/images/**", "/").permitAll()
-	            // すべてのユーザーにアクセスを許可するURL
+		http.authorizeHttpRequests(
+				(requests) -> requests.requestMatchers("/login", "/signup/**", "/css/**", "/images/**", "/").permitAll()
+						// すべてのユーザーにアクセスを許可するURL
 
-	            .requestMatchers("/admin/**").hasRole("ADMIN")
-	            // 管理者にのみアクセスを許可するURL
+						.requestMatchers("/admin/**").hasRole("ADMIN")
+						// 管理者にのみアクセスを許可するURL
 
-	            .anyRequest().authenticated()
-	            // 上記以外はログイン必須
-	        )
-	        .formLogin((form) -> form
-	            .loginPage("/login")              // ログインページ
-	            .loginProcessingUrl("/login")     // ログイン処理URL
-	            .defaultSuccessUrl("/?loggedIn")   // 成功時
-	            .failureUrl("/login?error")       // 失敗時
-	            .permitAll()
-	        )
-	        .logout((logout) -> logout
-	            .logoutSuccessUrl("/?loggedOut")  // ログアウト後
-	            .permitAll()
-	        );
+						.requestMatchers("/user/**").authenticated() // ←追加
+						.anyRequest().authenticated()
+		// 上記以外はログイン必須
+		).formLogin((form) -> form.loginPage("/login") // ログインページ
+				.loginProcessingUrl("/login") // ログイン処理URL
+				.defaultSuccessUrl("/?loggedIn") // 成功時
+				.failureUrl("/login?error") // 失敗時
+				.permitAll()).logout((logout) -> logout.logoutSuccessUrl("/?loggedOut") // ログアウト後
+						.permitAll());
 
-	    return http.build();
+		return http.build();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 }

@@ -1,160 +1,164 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <th:block th:replace="~{fragment :: meta}"></th:block>
-    <th:block th:replace="~{fragment :: styles}"></th:block>
+<th:block th:replace="~{fragment :: meta}"></th:block>
+<th:block th:replace="~{fragment :: styles}"></th:block>
 
-    <title>民宿情報編集</title>
+<title>豌大ｮｿ諠�蝣ｱ邱ｨ髮�</title>
 </head>
 
 <body>
-<div class="samuraitraveltravel-wrapper">
+	<div class="samuraitraveltravel-wrapper">
 
-    <!-- ヘッダー -->
-    <div th:replace="~{fragment :: header}"></div>
+		<!-- 繝倥ャ繝�繝ｼ -->
+		<div th:replace="~{fragment :: header}"></div>
 
-    <main>
-        <div class="container pt-4 pb-5 samuraitraveltravel-container">
-            <div class="row justify-content-center">
-                <div class="col-xl-5 col-lg-6 col-md-8">
+		<main>
+			<div class="container pt-4 pb-5 samuraitraveltravel-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
 
-                    <!-- パンくず -->
-                    <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item">
-                                <a th:href="@{/admin/houses}">民宿一覧</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a th:href="@{/admin/houses/{id}(id=${houseEditForm.id})}">民宿詳細</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">民宿情報編集</li>
-                        </ol>
-                    </nav>
+						<!-- 繝代Φ縺上★ -->
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';"
+							aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/admin/houses}">豌大ｮｿ荳�隕ｧ</a>
+								</li>
+								<li class="breadcrumb-item"><a
+									th:href="@{/admin/houses/{id}(id=${houseEditForm.id})}">豌大ｮｿ隧ｳ邏ｰ</a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">豌大ｮｿ諠�蝣ｱ邱ｨ髮�</li>
+							</ol>
+						</nav>
 
-                    <h1 class="mb-4 text-center">民宿情報編集</h1>
+						<h1 class="mb-4 text-center">豌大ｮｿ諠�蝣ｱ邱ｨ髮�</h1>
 
-                    <form method="post"
-                          th:action="@{/admin/houses/{id}/update(id=${houseEditForm.id})}"
-                          th:object="${houseEditForm}"
-                          enctype="multipart/form-data">
+						<form method="post"
+							th:action="@{/admin/houses/{id}/update(id=${houseEditForm.id})}"
+							th:object="${houseEditForm}" enctype="multipart/form-data">
 
-                        <input type="hidden" th:field="*{id}">
+							<input type="hidden" th:field="*{id}">
 
-                        <!-- 民宿名 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">民宿名</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{name}" class="text-danger small mb-2"></div>
-                                <input type="text" class="form-control" th:field="*{name}">
-                            </div>
-                        </div>
+							<!-- 豌大ｮｿ蜷� -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">豌大ｮｿ蜷�</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{name}" class="text-danger small mb-2"></div>
+									<input type="text" class="form-control" th:field="*{name}">
+								</div>
+							</div>
 
-                        <!-- 画像 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">民宿画像</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{imageFile}" class="text-danger small mb-2"></div>
-                                <input type="file" class="form-control" th:field="*{imageFile}">
-                            </div>
-                        </div>
+							<!-- 逕ｻ蜒� -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">豌大ｮｿ逕ｻ蜒�</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{imageFile}" class="text-danger small mb-2"></div>
+									<input type="file" class="form-control" th:field="*{imageFile}">
+								</div>
+							</div>
 
-                        <!-- 既存画像 -->
-                        <div class="mb-3" th:if="${imageName}">
-                            <img th:src="@{/storage/{img}(img=${imageName})}" class="w-100">
-                        </div>
+							<!-- 譌｢蟄倡判蜒� -->
+							<div class="mb-3" th:if="${imageName}">
+								<img th:src="@{/storage/{img}(img=${imageName})}" class="w-100">
+							</div>
 
-                        <!-- 説明 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">説明</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{description}" class="text-danger small mb-2"></div>
-                                <textarea class="form-control" th:field="*{description}" rows="5"></textarea>
-                            </div>
-                        </div>
+							<!-- 隱ｬ譏� -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">隱ｬ譏�</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{description}" class="text-danger small mb-2"></div>
+									<textarea class="form-control" th:field="*{description}"
+										rows="5"></textarea>
+								</div>
+							</div>
 
-                        <!-- 料金 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">宿泊料金（円）</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{price}" class="text-danger small mb-2"></div>
-                                <input type="number" class="form-control" th:field="*{price}">
-                            </div>
-                        </div>
+							<!-- 譁咎�� -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">螳ｿ豕頑侭驥托ｼ亥���ｼ�</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{price}" class="text-danger small mb-2"></div>
+									<input type="number" class="form-control" th:field="*{price}">
+								</div>
+							</div>
 
-                        <!-- 定員 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">定員（人）</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{capacity}" class="text-danger small mb-2"></div>
-                                <input type="number" class="form-control" th:field="*{capacity}">
-                            </div>
-                        </div>
+							<!-- 螳壼藤 -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">螳壼藤�ｼ井ｺｺ�ｼ�</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{capacity}" class="text-danger small mb-2"></div>
+									<input type="number" class="form-control"
+										th:field="*{capacity}">
+								</div>
+							</div>
 
-                        <!-- 郵便番号 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">郵便番号</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{postalCode}" class="text-danger small mb-2"></div>
-                                <input type="text" class="form-control" th:field="*{postalCode}">
-                            </div>
-                        </div>
+							<!-- 驛ｵ萓ｿ逡ｪ蜿ｷ -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">驛ｵ萓ｿ逡ｪ蜿ｷ</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{postalCode}" class="text-danger small mb-2"></div>
+									<input type="text" class="form-control"
+										th:field="*{postalCode}">
+								</div>
+							</div>
 
-                        <!-- 住所 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">住所</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{address}" class="text-danger small mb-2"></div>
-                                <input type="text" class="form-control" th:field="*{address}">
-                            </div>
-                        </div>
+							<!-- 菴乗園 -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">菴乗園</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{address}" class="text-danger small mb-2"></div>
+									<input type="text" class="form-control" th:field="*{address}">
+								</div>
+							</div>
 
-                        <!-- 電話番号 -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label fw-bold">電話番号</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div th:errors="*{phoneNumber}" class="text-danger small mb-2"></div>
-                                <input type="text" class="form-control" th:field="*{phoneNumber}">
-                            </div>
-                        </div>
+							<!-- 髮ｻ隧ｱ逡ｪ蜿ｷ -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">髮ｻ隧ｱ逡ｪ蜿ｷ</label>
+								</div>
+								<div class="col-md-8">
+									<div th:errors="*{phoneNumber}" class="text-danger small mb-2"></div>
+									<input type="text" class="form-control"
+										th:field="*{phoneNumber}">
+								</div>
+							</div>
 
-                        <!-- ボタン -->
-                        <div class="d-flex justify-content-center my-4">
-                            <button type="submit" class="btn text-white shadow-sm w-50 samuraitraveltravel-btn">
-                                更新
-                            </button>
-                        </div>
+							<!-- 繝懊ち繝ｳ -->
+							<div class="d-flex justify-content-center my-4">
+								<button type="submit"
+									class="btn text-white shadow-sm w-50 samuraitraveltravel-btn">
+									譖ｴ譁ｰ</button>
+							</div>
 
-                    </form>
+						</form>
 
-                </div>
-            </div>
-        </div>
-    </main>
+					</div>
+				</div>
+			</div>
+		</main>
 
-    <!-- フッター -->
-    <div th:replace="~{fragment :: footer}"></div>
+		<!-- 繝輔ャ繧ｿ繝ｼ -->
+		<div th:replace="~{fragment :: footer}"></div>
 
-</div>
+	</div>
 
-<div th:replace="~{fragment :: scripts}"></div>
-<script th:src="@{/js/preview.js}"></script>
+	<div th:replace="~{fragment :: scripts}"></div>
+	<script th:src="@{/js/preview.js}"></script>
 
 </body>
 </html>

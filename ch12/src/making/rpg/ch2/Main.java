@@ -5,14 +5,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Monster[] monsters = new Monster[3];
-		monsters[0] = new Slime();
-		monsters[1] = new Goblin();
-		monsters[2] = new Bat();
-		for (Monster m : monsters) {
-			m.run();
-		}
-
+		Character c = new Wizard();
+		Wizard w = (Wizard)c;
+		w.fireball(null);
 	}
 
 }

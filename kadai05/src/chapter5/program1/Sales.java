@@ -7,7 +7,7 @@ public class Sales extends Employee {
 	// 操作
 	// 週報返信
 	public void Report() {
-		System.out.println("週報を返信した");
+		System.out.println("週報の返信をした");
 
 	}
 

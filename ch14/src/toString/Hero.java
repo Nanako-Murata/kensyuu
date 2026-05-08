@@ -7,6 +7,7 @@ public class Hero {
 
 	public static void setRandomMoney() {
 		Hero.money = (int) (Math.random() * 1000);
+		System.out.println("所持金を初期化しました");
 
 	}
 
