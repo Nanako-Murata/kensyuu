@@ -18,10 +18,25 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll().anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
-						.defaultSuccessUrl("/?loggedIn", true).failureUrl("/login?error").permitAll())
-				.logout(logout -> logout.logoutSuccessUrl("/?loggedOut").permitAll());
+		http.authorizeHttpRequests((requests) -> requests
+
+				// すべてのユーザーにアクセスを許可
+				.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/houses/**", "/stripe/webhook")
+				.permitAll()
+
+				// 管理者のみアクセス可能
+				.requestMatchers("/admin/**").hasRole("ADMIN")
+
+				// その他はログイン必須
+				.anyRequest().authenticated())
+
+				.formLogin((form) -> form.loginPage("/login").loginProcessingUrl("/login")
+						.defaultSuccessUrl("/?loggedIn").failureUrl("/login?error").permitAll())
+
+				.logout((logout) -> logout.logoutSuccessUrl("/?loggedOut").permitAll())
+
+				// Stripe webhook は CSRF除外
+				.csrf((csrf) -> csrf.ignoringRequestMatchers("/stripe/webhook"));
 
 		return http.build();
 	}
