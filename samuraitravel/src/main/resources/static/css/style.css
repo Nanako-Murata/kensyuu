@@ -13,65 +13,65 @@ body {
 ========================================= */
 h1 {
 	font-size: 1.5rem;
-	color: #333333;
+	color: #222222;
 }
 
 h2 {
 	font-size: 1.475rem;
-	color: #333333;
+	color: #222222;
 }
 
 h3 {
 	font-size: 1.25rem;
-	color: #333333;
+	color: #222222;
 }
 
 /* =========================================
-   リンク
+   リンク（少しカラフル）
 ========================================= */
 a {
-	color: #0d6efd;
+	color: #6f42c1;
 	text-decoration: none !important;
 }
 
 a:hover {
-	color: #0a58ca;
+	color: #d63384;
 }
 
 /* =========================================
-   コンテナ
+   コンテナ（moat → samurai）
 ========================================= */
-.moattravel-container {
-	background-color: #ffffff;
+.samurai-container {
+	background: linear-gradient(135deg, #ffffff, #f3f0ff);
 }
 
 /* =========================================
-   カードデザイン
+   カードデザイン（少しリッチ）
 ========================================= */
 .card {
 	border: 1px solid #e5e5e5;
 	background-color: #ffffff;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	border-radius: 12px;
 }
 
 .card-header {
-	background-color: #ffffff;
-	border-bottom: 1px solid #eeeeee;
+	background: linear-gradient(90deg, #6f42c1, #0d6efd);
+	border-bottom: none;
 	font-weight: bold;
-	color: #333333;
+	color: #ffffff;
 }
 
 /* =========================================
    カード画像
 ========================================= */
-.moattravel-vertical-card-image {
+.samurai-vertical-card-image {
 	width: 100%;
 	height: 150px;
 	object-fit: cover;
 }
 
-.moattravel-horizontal-card-image {
+.samurai-horizontal-card-image {
 	width: 100%;
 	height: 240px;
 	object-fit: cover;
@@ -79,27 +79,26 @@ a:hover {
 }
 
 /* =========================================
-   ボタン
+   ボタン（カラフル強化）
 ========================================= */
-.moattravel-btn {
-	background-color: #0d6efd !important;
-	border: 1px solid #0d6efd !important;
+.samurai-btn {
+	background: linear-gradient(135deg, #0d6efd, #6610f2) !important;
+	border: none !important;
 	color: #ffffff !important;
 	font-weight: bold;
 	padding: 8px 16px;
-	border-radius: 6px;
+	border-radius: 8px;
 	transition: 0.3s;
 }
 
-.moattravel-btn:hover {
-	background-color: #0b5ed7 !important;
-	border-color: #0a58ca !important;
+.samurai-btn:hover {
+	background: linear-gradient(135deg, #6610f2, #d63384) !important;
 	color: #ffffff !important;
+	transform: translateY(-1px);
 }
 
 /* Bootstrap対策 */
-.btn.moattravel-btn {
-	background-color: #0d6efd !important;
+.btn.samurai-btn {
 	color: #ffffff !important;
 }
 
@@ -107,65 +106,65 @@ a:hover {
    フォーム
 ========================================= */
 .form-control, .form-select {
-	border-radius: 6px;
+	border-radius: 8px;
 	border: 1px solid #ced4da;
 }
 
 .form-control:focus, .form-select:focus {
-	border-color: #0d6efd;
-	box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+	border-color: #6610f2;
+	box-shadow: 0 0 0 0.25rem rgba(102, 16, 242, 0.25);
 }
 
 /* =========================================
    ドロップダウン
 ========================================= */
-.moattravel-dropdown-item:active {
-	background-color: #0d6efd;
+.samurai-dropdown-item:active {
+	background-color: #6610f2;
 	color: #ffffff;
 }
 
 /* =========================================
    カードリンク
 ========================================= */
-.moattravel-card-link {
+.samurai-card-link {
 	transition: 0.3s;
 	display: block;
 }
 
-.moattravel-card-link:hover {
-	opacity: 0.85;
-	transform: translateY(-2px);
+.samurai-card-link:hover {
+	opacity: 0.9;
+	transform: translateY(-3px);
 }
 
 /* =========================================
    ページネーション
 ========================================= */
-.moattravel-page-link {
-	color: #0d6efd;
+.samurai-page-link {
+	color: #6610f2;
 }
 
-.moattravel-page-link:hover {
-	background-color: #e7f1ff;
-	color: #0a58ca;
+.samurai-page-link:hover {
+	background-color: #f3e8ff;
+	color: #6f42c1;
 }
 
-.moattravel-active {
-	background-color: #0d6efd !important;
-	border-color: #0d6efd !important;
+.samurai-active {
+	background: linear-gradient(135deg, #6610f2, #0d6efd) !important;
+	border-color: #6610f2 !important;
 	color: #ffffff !important;
 }
 
 /* =========================================
    検索フォーム
 ========================================= */
-.moattravel-search-form {
+.samurai-search-form {
 	max-width: 300px;
 }
 
 /* =========================================
    並び替えボックス
 ========================================= */
-.moattravel-sort-box {
+.samurai-sort-box {
 	width: 180px;
 }
 
@@ -173,7 +172,30 @@ a:hover {
    レスポンシブ設定
 ========================================= */
 @media screen and (min-width: 1400px) {
-	.moattravel-container {
+	.samurai-container {
 		max-width: 1200px;
 	}
+}
+
+.moattravel-page-link {
+	background: #ffffff;
+	color: #0d6efd;
+	border: 1px solid #0d6efd;
+	padding: 6px 12px;
+	border-radius: 6px;
+	margin: 0 3px;
+	transition: 0.2s;
+}
+
+.moattravel-page-link:hover {
+	background: #0d6efd;
+	color: #ffffff;
+}
+
+.moattravel-active {
+	background: #0d6efd !important;
+	color: #ffffff !important;
+	border: 1px solid #0d6efd !important;
+	padding: 6px 12px;
+	border-radius: 6px;
 }

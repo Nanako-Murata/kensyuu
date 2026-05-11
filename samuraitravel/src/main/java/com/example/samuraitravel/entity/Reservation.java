@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "resarvations")
+@Table(name = "reservations")
 @Data
 public class Reservation {
 	@Id
@@ -43,7 +43,7 @@ public class Reservation {
 	private Integer amount;
 
 	@Column(name = "created_at", insertable = false, updatable = false)
-	private Timestamp createdAat;
+	private Timestamp createdAt;
 
 	@Column(name = "updated_at", insertable = false, updatable = false)
 	private Timestamp updatedAt;
