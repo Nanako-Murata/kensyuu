@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<!-- 共通メタ情報（charset / viewportなど） -->
+<div th:replace="~{fragment :: meta}"></div>
+
+<!-- 共通CSS・フォント -->
+<div th:replace="~{fragment :: styles}"></div>
+
+<title>民宿情報編集</title>
+</head>
+
+<body>
+	<div class="moattravel-wrapper">
+
+		<!-- =========================
+         ヘッダー
+    ========================== -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 moattravel-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
+
+						<!-- =========================
+                         パンくずリスト
+                    ========================== -->
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';"
+							aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+
+								<!-- 民宿一覧へ戻る -->
+								<li class="breadcrumb-item"><a th:href="@{/admin/houses}">民宿一覧</a>
+								</li>
+
+								<!-- 民宿詳細ページ -->
+								<li class="breadcrumb-item"><a
+									th:href="@{/admin/houses/__${houseEditForm.getId()}__}">
+										民宿詳細 </a></li>
+
+								<!-- 現在ページ -->
+								<li class="breadcrumb-item active" aria-current="page">
+									民宿情報編集</li>
+
+							</ol>
+						</nav>
+
+						<!-- ページタイトル -->
+						<h1 class="mb-4 text-center">民宿情報編集</h1>
+
+						<!-- =========================
+                         編集フォーム
+                    ========================== -->
+						<form method="post"
+							th:action="@{/admin/houses/__${houseEditForm.getId()}__/update}"
+							th:object="${houseEditForm}" enctype="multipart/form-data">
+
+							<!-- hidden：ID保持 -->
+							<input type="hidden" th:field="*{id}">
+
+							<!-- ===== 民宿名 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">民宿名</label>
+								</div>
+								<div class="col-md-8">
+
+									<!-- バリデーションエラー表示 -->
+									<div th:if="${#fields.hasErrors('name')}"
+										class="text-danger small mb-2" th:errors="*{name}"></div>
+
+									<input type="text" class="form-control" th:field="*{name}">
+								</div>
+							</div>
+
+							<!-- ===== 画像アップロード ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">民宿画像</label>
+								</div>
+								<div class="col-md-8">
+
+									<!-- エラー表示 -->
+									<div th:if="${#fields.hasErrors('imageFile')}"
+										class="text-danger small mb-2" th:errors="*{imageFile}"></div>
+
+									<input type="file" class="form-control" th:field="*{imageFile}">
+								</div>
+							</div>
+
+							<!-- ===== 画像プレビュー ===== -->
+							<div th:if="${imageName}" class="row" id="imagePreview">
+								<!-- 既存画像表示 -->
+								<img th:src="@{/storage/__${imageName}__}" class="mb-3">
+							</div>
+							<div th:unless="${imageName}" class="row" id="imagePreview"></div>
+
+							<!-- ===== 説明 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">説明</label>
+								</div>
+								<div class="col-md-8">
+
+									<div th:if="${#fields.hasErrors('description')}"
+										class="text-danger small mb-2" th:errors="*{description}"></div>
+
+									<textarea class="form-control" th:field="*{description}"
+										rows="5"></textarea>
+								</div>
+							</div>
+
+							<!-- ===== 宿泊料金 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">宿泊料金（円）</label>
+								</div>
+								<div class="col-md-8">
+
+									<div th:if="${#fields.hasErrors('price')}"
+										class="text-danger small mb-2" th:errors="*{price}"></div>
+
+									<input type="number" class="form-control" th:field="*{price}">
+								</div>
+							</div>
+
+							<!-- ===== 定員 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">定員（人）</label>
+								</div>
+								<div class="col-md-8">
+
+									<div th:if="${#fields.hasErrors('capacity')}"
+										class="text-danger small mb-2" th:errors="*{capacity}"></div>
+
+									<input type="number" class="form-control"
+										th:field="*{capacity}">
+								</div>
+							</div>
+
+							<!-- ===== 郵便番号 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">郵便番号</label>
+								</div>
+								<div class="col-md-8">
+
+									<div th:if="${#fields.hasErrors('postalCode')}"
+										class="text-danger small mb-2" th:errors="*{postalCode}"></div>
+
+									<input type="text" class="form-control"
+										th:field="*{postalCode}">
+								</div>
+							</div>
+
+							<!-- ===== 住所 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">住所</label>
+								</div>
+								<div class="col-md-8">
+
+									<div th:if="${#fields.hasErrors('address')}"
+										class="text-danger small mb-2" th:errors="*{address}"></div>
+
+									<input type="text" class="form-control" th:field="*{address}">
+								</div>
+							</div>
+
+							<!-- ===== 電話番号 ===== -->
+							<div class="form-group row mb-3">
+								<div class="col-md-4">
+									<label class="col-form-label fw-bold">電話番号</label>
+								</div>
+								<div class="col-md-8">
+
+									<div th:if="${#fields.hasErrors('phoneNumber')}"
+										class="text-danger small mb-2" th:errors="*{phoneNumber}"></div>
+
+									<input type="text" class="form-control"
+										th:field="*{phoneNumber}">
+								</div>
+							</div>
+
+							<!-- ===== 更新ボタン ===== -->
+							<div class="d-flex justify-content-center my-4">
+								<button type="submit"
+									class="btn text-white shadow-sm w-50 moattravel-btn">
+									更新</button>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- =========================
+         フッター
+    ========================== -->
+		<div th:replace="~{fragment :: footer}"></div>
+
+	</div>
+
+	<!-- 共通JS -->
+	<div th:replace="~{fragment :: scripts}"></div>
+
+	<!-- 画像プレビュー用JS -->
+	<script th:src="@{/js/preview.js}"></script>
+
+</body>
+</html>

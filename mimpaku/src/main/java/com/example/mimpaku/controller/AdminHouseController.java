@@ -6,21 +6,31 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.mimpaku.entity.House;
+import com.example.mimpaku.form.HouseEditForm;
+import com.example.mimpaku.form.HouseRegisterForm;
 import com.example.mimpaku.repository.HouseRepository;
+import com.example.mimpaku.service.HouseService;
 
 @Controller
-@RequestMapping("admin/houses")
+@RequestMapping("/admin/houses")
 public class AdminHouseController {
 	private final HouseRepository houseRepository;
+	private final HouseService houseService;
 
-	public AdminHouseController(HouseRepository houseRepository) {
+	public AdminHouseController(HouseRepository houseRepository, HouseService houseService) {
 		this.houseRepository = houseRepository;
+		this.houseService = houseService;
 	}
 
 	@GetMapping
@@ -46,5 +56,53 @@ public class AdminHouseController {
 		House house = houseRepository.getReferenceById(id);
 		model.addAttribute("house", house);
 		return "admin/houses/show";
+	}
+
+	@GetMapping("/register")
+	public String register(Model model) {
+		model.addAttribute("houseRegisterForm", new HouseRegisterForm());
+		return "admin/houses/register";
+	}
+
+	@PostMapping("/create")
+	public String create(@ModelAttribute @Validated HouseRegisterForm houseRegisterForm, BindingResult result,
+			RedirectAttributes attributes) {
+		if (result.hasErrors()) {
+			return "admin/houses/register";
+		}
+		houseService.create(houseRegisterForm);
+		attributes.addFlashAttribute("successMessage", "Registered the mimpaku.");
+		return "redirect:/admin/houses";
+	}
+
+	@GetMapping("/{id}/edit")
+	public String edit(@PathVariable(name = "id") Integer id, Model model) {
+		House house = houseRepository.getReferenceById(id);
+		String imageName = house.getImageName();
+		HouseEditForm houseEditForm = new HouseEditForm(house.getId(), house.getName(), null, house.getDescription(),
+				house.getPrice(), house.getCapacity(), house.getPostalCode(), house.getAddress(),
+				house.getPhoneNumber());
+		model.addAttribute("imageName", imageName);
+		model.addAttribute("houseEditForm", houseEditForm);
+		return "admin/houses/edit";
+
+	}
+
+	@PostMapping("/{id}/update")
+	public String update(@ModelAttribute @Validated HouseEditForm houseEditForm, BindingResult result,
+			RedirectAttributes attributes) {
+		if (result.hasErrors()) {
+			return "admin/houses/edit";
+		}
+		houseService.update(houseEditForm);
+		attributes.addFlashAttribute("successMessage", "edited the mimpaku.");
+		return "redirect:/admin/houses";
+	}
+
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes attributes) {
+		houseRepository.deleteById(id);
+		attributes.addFlashAttribute("successMessage", "deleted the mimpaku.");
+		return "redirect:/admin/houses";
 	}
 }

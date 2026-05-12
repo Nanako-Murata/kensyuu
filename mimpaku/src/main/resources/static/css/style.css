@@ -1,3 +1,4 @@
+/* ======== ベース設定 ======== */
 html {
 	font-size: 14px;
 }
@@ -20,26 +21,24 @@ a:hover {
 	color: #407784;
 }
 
-/* レイアウト本体 */
+/* ======== レイアウト構造 ======== */
 .mimpaku-wrapper {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
 
-/* メインを伸ばす */
 main {
 	flex: 1;
 }
 
-/* フッター */
 footer {
 	width: 100%;
 	height: 60px;
 	background-color: #f2f0eb;
 }
 
-/* ナビ */
+/* ======== ナビ ======== */
 .mimpaku-navbar {
 	min-height: 60px;
 }
@@ -48,19 +47,45 @@ footer {
 	height: 30px;
 }
 
-/* ボタン */
+/* ======== ボタン（通常） ======== */
 .moattravel-btn {
-	background-color: #5196a6 !important;
+	background-color: #2f7d8a !important; /* 少し濃くする */
 	color: #fff !important;
 	border: none !important;
+	font-weight: bold; /* 文字を太くして見やすく */
+	padding: 8px 16px; /* 少し大きくする */
 	transition: 0.2s;
 }
 
 .moattravel-btn:hover {
-	background-color: #407784 !important;
+	background-color: #245f68 !important;
+	transform: translateY(-1px); /* 少し浮かせる */
 }
 
-/* ページネーションリンク */
+/* ======== 危険ボタン（削除系）強化版 ======== */
+.mimpaku-btn-danger {
+	background-color: #dc3545 !important; /* はっきりした赤（危険操作） */
+	color: #fff !important;
+	font-weight: bold; /* 文字を強調 */
+	border: none !important;
+	padding: 8px 20px; /* 押しやすくする */
+	transition: 0.15s;
+	/* 影を強くして浮かせる */
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* ホバー時（さらに危険感・操作感を強調） */
+.mimpaku-btn-danger:hover {
+	background-color: #bb2d3b !important;
+	transform: translateY(-1px) scale(1.03);
+}
+
+/* フォーカス時（キーボード操作対応） */
+.mimpaku-btn-danger:focus {
+	box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.4);
+}
+
+/* ======== ページネーション ======== */
 .mimpaku-page-link {
 	color: #5196a6;
 }
@@ -69,18 +94,17 @@ footer {
 	color: #407784;
 }
 
-/* アクティブページ */
 .mimpaku-active {
 	background-color: #5196a6 !important;
 	border-color: #5196a6 !important;
 }
 
-/* 改行文字で行を折り返す */
+/* ======== テキスト ======== */
 .mimpaku-pre-wrap {
 	white-space: pre-wrap;
 }
 
-/* コンテナ */
+/* ======== コンテナ ======== */
 @media screen and (min-width: 1400px) {
 	.mimpaku-container {
 		max-width: 1200px;
