@@ -1,106 +1,164 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
 
 <!-- =========================
-         meta要素の共通部品
-         各ページで使い回す
-    ========================== -->
+     meta要素
+========================== -->
 <div th:fragment="meta" th:remove="tag">
-	<!-- 文字コード -->
 	<meta charset="UTF-8">
-
-	<!-- レスポンシブ対応 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </div>
 
 <!-- =========================
-         CSS・フォント読み込み部品
-    ========================== -->
+     styles
+========================== -->
 <div th:fragment="styles" th:remove="tag">
 
-	<!-- Bootstrap CSS -->
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-		crossorigin="anonymous">
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap"
-		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
 
-	<!-- 独自CSS -->
+	<!-- 自作CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet">
+
 </div>
 
-<title>部品化用のHTMLファイル</title>
+<title>fragment</title>
 
 </head>
 
 <body>
 
-	<!-- =========================
-         ヘッダー部品
-    ========================== -->
-	<div th:fragment="header" th:remove="tag">
+<!-- =========================
+     header（mimpaku統一版）
+========================== -->
+<div th:fragment="header" th:remove="tag">
 
-		<!-- ナビゲーションバー -->
-		<nav
-			class="navbar navbar-expand-md navbar-light bg-white shadow-sm mimpaku-navbar">
+	<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mimpaku-navbar">
+		<div class="container mimpaku-container">
 
-			<div class="container mimpaku-container">
+			<!-- ロゴ -->
+			<a class="navbar-brand" th:href="@{/}">
+				<img class="mimpaku-logo me-1" th:src="@{/images/logo.png}" alt="mimpaku">
+			</a>
 
-				<!-- ロゴ -->
-				<a class="navbar-brand" th:href="@{/}"> <img
-					class="mimpaku-logo me-1" th:src="@{/images/logo.png}"
-					alt="mimpaku">
+			<button class="navbar-toggler" type="button"
+			        data-bs-toggle="collapse"
+			        data-bs-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-				</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav ms-auto">
+
+					<!-- 未ログイン -->
+					<li class="nav-item" sec:authorize="isAnonymous()">
+						<a class="nav-link" th:href="@{/login}">ログイン</a>
+					</li>
+
+					<li class="nav-item" sec:authorize="isAnonymous()">
+						<a class="nav-link" th:href="@{/signup}">会員登録</a>
+					</li>
+
+					<!-- 一般ユーザー -->
+					<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_GENERAL')">
+
+						<a class="nav-link dropdown-toggle"
+						   href="#"
+						   id="navbarDropdownGeneral"
+						   role="button"
+						   data-bs-toggle="dropdown">
+
+							<span sec:authentication="principal.user.name"></span>
+
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-end">
+
+							<a class="dropdown-item mimpaku-dropdown-item"
+							   th:href="@{/logout}"
+							   onclick="event.preventDefault(); document.getElementById('logout-form-general').submit();">
+								ログアウト
+							</a>
+
+							<form id="logout-form-general"
+							      th:action="@{/logout}"
+							      method="post"
+							      class="d-none"></form>
+
+						</div>
+					</li>
+
+					<!-- 管理者 -->
+					<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+
+						<a class="nav-link dropdown-toggle"
+						   href="#"
+						   id="navbarDropdownAdmin"
+						   role="button"
+						   data-bs-toggle="dropdown">
+							管理者メニュー
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-end">
+
+							<a class="dropdown-item mimpaku-dropdown-item"
+							   th:href="@{/admin/houses}">
+								民宿一覧
+							</a>
+
+							<div class="dropdown-divider"></div>
+
+							<a class="dropdown-item mimpaku-dropdown-item"
+							   th:href="@{/logout}"
+							   onclick="event.preventDefault(); document.getElementById('logout-form-admin').submit();">
+								ログアウト
+							</a>
+
+							<form id="logout-form-admin"
+							      th:action="@{/logout}"
+							      method="post"
+							      class="d-none"></form>
+
+						</div>
+					</li>
+
+				</ul>
 
 			</div>
+		</div>
+	</nav>
 
-		</nav>
+</div>
 
-	</div>
+<!-- =========================
+     footer（重要：これがエラー防止）
+========================== -->
+<div th:fragment="footer" th:remove="tag">
 
-	<!-- =========================
-         フッター部品
-    ========================== -->
-	<div th:fragment="footer" th:remove="tag">
+	<footer class="text-center py-4">
+		<small>© mimpaku</small>
+	</footer>
 
-		<footer>
+</div>
 
-			<div class="d-flex justify-content-center align-items-center h-100">
+<!-- =========================
+     scripts
+========================== -->
+<div th:fragment="scripts" th:remove="tag">
 
-				<!-- コピーライト -->
-				<p class="text-center text-muted small mb-0">&copy; mimpaku All
-					rights reserved.</p>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-			</div>
-
-		</footer>
-
-	</div>
-
-	<!-- =========================
-         JavaScript読み込み部品
-    ========================== -->
-	<div th:fragment="scripts" th:remove="tag">
-
-		<!-- Bootstrap JavaScript -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-			crossorigin="anonymous">
-			
-		</script>
-
-	</div>
+</div>
 
 </body>
 </html>

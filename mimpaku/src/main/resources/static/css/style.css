@@ -48,41 +48,22 @@ footer {
 }
 
 /* ======== ボタン（通常） ======== */
-.moattravel-btn {
-	background-color: #2f7d8a !important; /* 少し濃くする */
-	color: #fff !important;
-	border: none !important;
-	font-weight: bold; /* 文字を太くして見やすく */
-	padding: 8px 16px; /* 少し大きくする */
+.mimpaku-btn {
+	background-color: #2f7d8a;
+	color: #fff;
+	border: none;
+	font-weight: bold;
+	padding: 8px 16px;
 	transition: 0.2s;
 }
 
-.moattravel-btn:hover {
-	background-color: #245f68 !important;
-	transform: translateY(-1px); /* 少し浮かせる */
+.mimpaku-btn:hover {
+	background-color: #245f68;
+	transform: translateY(-1px);
 }
-
-/* ======== 危険ボタン（削除系）強化版 ======== */
-.mimpaku-btn-danger {
-	background-color: #dc3545 !important; /* はっきりした赤（危険操作） */
-	color: #fff !important;
-	font-weight: bold; /* 文字を強調 */
-	border: none !important;
-	padding: 8px 20px; /* 押しやすくする */
-	transition: 0.15s;
-	/* 影を強くして浮かせる */
-	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-}
-
-/* ホバー時（さらに危険感・操作感を強調） */
-.mimpaku-btn-danger:hover {
-	background-color: #bb2d3b !important;
-	transform: translateY(-1px) scale(1.03);
-}
-
-/* フォーカス時（キーボード操作対応） */
-.mimpaku-btn-danger:focus {
-	box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.4);
+/* ======== ドロップダウン（旧） ======== */
+.moattravel-dropdown-item:active {
+	background-color: #5196a6;
 }
 
 /* ======== ページネーション ======== */
@@ -102,6 +83,26 @@ footer {
 /* ======== テキスト ======== */
 .mimpaku-pre-wrap {
 	white-space: pre-wrap;
+}
+
+/* ======== 危険ボタン（新・強化版） ======== */
+.mimpaku-btn-danger {
+	background-color: #dc3545 !important;
+	color: #fff !important;
+	font-weight: bold;
+	border: none !important;
+	padding: 8px 20px;
+	transition: 0.15s;
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.mimpaku-btn-danger:hover {
+	background-color: #bb2d3b !important;
+	transform: translateY(-1px) scale(1.03);
+}
+
+.mimpaku-btn-danger:focus {
+	box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.4);
 }
 
 /* ======== コンテナ ======== */
