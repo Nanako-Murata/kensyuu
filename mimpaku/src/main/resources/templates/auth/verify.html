@@ -3,15 +3,12 @@
 <html xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <th:block th:replace="~{fragment :: meta}"></th:block>
+
 <th:block th:replace="~{fragment :: styles}"></th:block>
 
-<title>mimpaku Travel</title>
+<title>メール認証</title>
 </head>
 
 <body>
@@ -25,22 +22,25 @@
 
 			<div class="container pt-4 pb-5 mimpaku-container">
 
-				<div th:if="${param.loggedIn}" class="alert alert-info">
-					ログインしました。</div>
+				<div class="row justify-content-center">
 
-				<div th:if="${param.loggedOut}" class="alert alert-info">
-					ログアウトしました。</div>
+					<div class="col-xl-5 col-lg-6 col-md-8">
 
-				<div th:if="${successMessage}" class="alert alert-info">
-					<span th:text="${successMessage}"></span>
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+
+						<div th:if="${errorMessage}" class="alert alert-danger">
+							<span th:text="${errorMessage}"></span>
+						</div>
+
+					</div>
+
 				</div>
 
 			</div>
+
 		</main>
-
-		<!--======== 後略 ========-->
-
-
 
 		<!-- フッター -->
 		<div th:replace="~{fragment :: footer}"></div>
