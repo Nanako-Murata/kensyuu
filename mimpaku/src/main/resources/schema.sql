@@ -41,3 +41,17 @@ create table if not exists verification_tokens (
 	updated_at datetime not null default current_timestamp on update current_timestamp,
 	foreign key (user_id) references users(id)
 );
+
+create table if not exists reservations (
+	id int not null auto_increment primary key,
+	house_id int not null,
+	user_id int not null,
+	checkin_date date not null,
+	checkout_date date not null,
+	number_of_people int not null,
+	amount int not null,
+	created_at datetime not null default current_timestamp,
+	updated_at datetime not null default current_timestamp,
+	foreign key (house_id) references houses (id),
+	foreign key (user_id) references users(id)
+);

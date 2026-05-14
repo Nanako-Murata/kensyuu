@@ -1,56 +1,76 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<div th:replace="~{fragment :: meta}"></div>
 
-	<div th:replace="~{fragment :: styles}"></div>
+<!-- 共通meta -->
+<div th:replace="~{fragment :: meta}"></div>
 
-	<title>民宿一覧</title>
+<!-- 共通CSS -->
+<div th:replace="~{fragment :: styles}"></div>
+
+<title>民宿一覧</title>
+
 </head>
 
 <body>
+
 	<div class="mimpaku-wrapper">
 
 		<!-- ヘッダー -->
 		<div th:replace="~{fragment :: header}"></div>
 
 		<main>
+
 			<div class="container mimpaku-container pb-5">
 
 				<div class="row justify-content-center">
 
-					<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+					<!-- パンくず -->
+					<nav class="my-3" style="--bs-breadcrumb-divider: '>';"
+						aria-label="breadcrumb">
 
 						<ol class="breadcrumb mb-0">
-							<li class="breadcrumb-item">
-								<a th:href="@{/}">ホーム</a>
+
+							<li class="breadcrumb-item"><a th:href="@{/}"> ホーム </a></li>
+
+							<li class="breadcrumb-item active" aria-current="page">民宿一覧
 							</li>
 
-							<li class="breadcrumb-item active" aria-current="page">
-								民宿一覧
-							</li>
 						</ol>
+
 					</nav>
 
+					<!-- ========================= -->
+					<!-- 左サイド -->
+					<!-- ========================= -->
 					<div class="col-xl-3 col-lg-4 col-md-12">
 
+						<!-- ========================= -->
+						<!-- キーワード検索 -->
+						<!-- ========================= -->
 						<form method="get" th:action="@{/houses}" class="w-100 mb-3">
-							<div class="input-group">
-								<input type="text" class="form-control" name="keyword" th:value="${keyword}"
-									placeholder="民宿名・目的地">
 
-								<button type="submit" class="btn text-white shadow-sm mimpaku-btn">
-									検索
-								</button>
+							<div class="input-group">
+
+								<input type="text" class="form-control" name="keyword"
+									th:value="${keyword}" placeholder="民宿名・目的地">
+
+								<button type="submit"
+									class="btn text-white shadow-sm mimpaku-btn">検索</button>
+
 							</div>
+
 						</form>
 
+						<!-- ========================= -->
+						<!-- エリア検索 -->
+						<!-- ========================= -->
 						<div class="card mb-3">
-							<div class="card-header">
-								エリアから探す
-							</div>
+
+							<div class="card-header">エリアから探す</div>
 
 							<div class="card-body">
 
@@ -60,61 +80,93 @@
 
 										<select class="form-control form-select" name="area">
 
-											<option value="" hidden>
-												選択してください
-											</option>
+											<option value="" hidden>選択してください</option>
 
+											<!-- 北海道 -->
 											<optgroup label="北海道">
 												<option value="北海道" th:selected="${area == '北海道'}">
-													北海道
-												</option>
+													北海道</option>
 											</optgroup>
 
+											<!-- 東北 -->
 											<optgroup label="東北">
+
 												<option value="青森県" th:selected="${area == '青森県'}">
-													青森県
-												</option>
+													青森県</option>
 
 												<option value="岩手県" th:selected="${area == '岩手県'}">
-													岩手県
-												</option>
+													岩手県</option>
 
 												<option value="宮城県" th:selected="${area == '宮城県'}">
-													宮城県
-												</option>
+													宮城県</option>
 
 												<option value="秋田県" th:selected="${area == '秋田県'}">
-													秋田県
-												</option>
+													秋田県</option>
 
 												<option value="山形県" th:selected="${area == '山形県'}">
-													山形県
-												</option>
+													山形県</option>
 
 												<option value="福島県" th:selected="${area == '福島県'}">
-													福島県
-												</option>
+													福島県</option>
+
 											</optgroup>
 
-											<!-- 以下同様 -->
+											<!-- 関東 -->
+											<optgroup label="関東">
+
+												<option value="東京都" th:selected="${area == '東京都'}">
+													東京都</option>
+
+												<option value="神奈川県" th:selected="${area == '神奈川県'}">
+													神奈川県</option>
+
+												<option value="千葉県" th:selected="${area == '千葉県'}">
+													千葉県</option>
+
+												<option value="埼玉県" th:selected="${area == '埼玉県'}">
+													埼玉県</option>
+
+											</optgroup>
+
+											<!-- 関西 -->
+											<optgroup label="関西">
+
+												<option value="大阪府" th:selected="${area == '大阪府'}">
+													大阪府</option>
+
+												<option value="京都府" th:selected="${area == '京都府'}">
+													京都府</option>
+
+												<option value="兵庫県" th:selected="${area == '兵庫県'}">
+													兵庫県</option>
+
+											</optgroup>
+
 										</select>
+
 									</div>
 
 									<div class="form-group">
-										<button type="submit" class="btn text-white shadow-sm w-100 mimpaku-btn">
-											検索
-										</button>
+
+										<button type="submit"
+											class="btn text-white shadow-sm w-100 mimpaku-btn">
+
+											検索</button>
+
 									</div>
 
 								</form>
+
 							</div>
+
 						</div>
 
+						<!-- ========================= -->
+						<!-- 価格検索 -->
+						<!-- ========================= -->
 						<div class="card mb-3">
 
-							<div class="card-header">
-								1泊あたりの予算から探す
-							</div>
+							<div class="card-header">1泊あたりの予算から探す</div>
 
 							<div class="card-body">
 
@@ -124,77 +176,118 @@
 
 										<select class="form-control form-select" name="price">
 
-											<option value="" hidden>
-												選択してください
-											</option>
+											<option value="" hidden>選択してください</option>
 
 											<option value="6000" th:selected="${price == 6000}">
-												6,000円以内
-											</option>
+												6,000円以内</option>
 
 											<option value="7000" th:selected="${price == 7000}">
-												7,000円以内
-											</option>
+												7,000円以内</option>
 
 											<option value="8000" th:selected="${price == 8000}">
-												8,000円以内
-											</option>
+												8,000円以内</option>
 
 											<option value="9000" th:selected="${price == 9000}">
-												9,000円以内
-											</option>
+												9,000円以内</option>
 
 											<option value="10000" th:selected="${price == 10000}">
-												10,000円以内
-											</option>
+												10,000円以内</option>
 
 										</select>
+
 									</div>
 
 									<div class="form-group">
-										<button type="submit" class="btn text-white shadow-sm w-100 mimpaku-btn">
-											検索
-										</button>
+
+										<button type="submit"
+											class="btn text-white shadow-sm w-100 mimpaku-btn">
+
+											検索</button>
+
 									</div>
 
 								</form>
+
 							</div>
+
 						</div>
+
 					</div>
 
+					<!-- ========================= -->
+					<!-- 一覧 -->
+					<!-- ========================= -->
 					<div class="col">
 
+						<!-- 検索件数 -->
 						<div class="d-flex justify-content-between flex-wrap">
 
 							<p th:if="${housePage.getTotalPages() > 1}" class="fs-5 mb-3"
-								th:text="${'検索結果：' + housePage.getTotalElements() + '件（' + (housePage.getNumber() + 1) + ' / ' + housePage.getTotalPages() + ' ページ）'}">
+								th:text="${'検索結果：'
+                                        + housePage.getTotalElements()
+                                        + '件（'
+                                        + (housePage.getNumber() + 1)
+                                        + ' / '
+                                        + housePage.getTotalPages()
+                                        + 'ページ）'}">
 							</p>
 
 							<p th:unless="${housePage.getTotalPages() > 1}" class="fs-5 mb-3"
-								th:text="${'検索結果：' + housePage.getTotalElements() + '件'}">
+								th:text="${'検索結果：'
+                                        + housePage.getTotalElements()
+                                        + '件'}">
 							</p>
+
+							<!-- 並び替え -->
+							<form method="get" th:action="@{/houses}"
+								class="mb-3 mimpaku-sort-box">
+
+								<!-- hiddenで条件維持 -->
+								<input th:if="${keyword}" type="hidden" name="keyword"
+									th:value="${keyword}"> <input th:if="${area}"
+									type="hidden" name="area" th:value="${area}"> <input
+									th:if="${price}" type="hidden" name="price" th:value="${price}">
+
+								<select class="form-select form-select-sm" name="order"
+									onChange="this.form.submit();">
+
+									<option value="createdAtDesc"
+										th:selected="${order == 'createdAtDesc' || order == null}">
+										新着順</option>
+
+									<option value="priceAsc" th:selected="${order == 'priceAsc'}">
+										宿泊料金が安い順</option>
+
+								</select>
+
+							</form>
 
 						</div>
 
+						<!-- 民宿カード -->
 						<div class="mb-3" th:each="house : ${housePage}">
 
-							<a th:href="@{/houses/__${house.getId()}__}" class="link-dark mimpaku-card-link">
+							<a th:href="@{/houses/__${house.getId()}__}"
+								class="link-dark mimpaku-card-link">
 
 								<div class="card h-100">
 
 									<div class="row g-0">
 
+										<!-- 画像 -->
 										<div class="col-md-4">
 
 											<img th:if="${house.getImageName()}"
 												th:src="@{/storage/__${house.getImageName()}__}"
-												class="card-img-top mimpaku-horizontal-card-image" alt="民宿画像">
-
-											<img th:unless="${house.getImageName()}" th:src="@{/images/noImage.png}"
-												class="card-img-top mimpaku-horizontal-card-image" alt="NO IMAGE">
+												class="card-img-top mimpaku-horizontal-card-image"
+												alt="民宿画像"> <img th:unless="${house.getImageName()}"
+												th:src="@{/images/noImage.png}"
+												class="card-img-top mimpaku-horizontal-card-image"
+												alt="NO IMAGE">
 
 										</div>
 
+										<!-- 本文 -->
 										<div class="col-md-8">
 
 											<div class="card-body">
@@ -205,89 +298,101 @@
 												<hr class="mb-3">
 
 												<p class="card-text mb-2">
-													<span th:text="${house.getDescription()}"></span>
+
+													<span th:text="${house.getDescription()}"> </span>
+
 												</p>
 
 												<p class="card-text mb-2">
 
-													<small class="text-muted" th:text="${'〒' + house.getPostalCode()}">
-													</small>
-
-													<small class="text-muted" th:text="${house.getAddress()}">
+													<small class="text-muted"
+														th:text="${'〒' + house.getPostalCode()}"> </small> <small
+														class="text-muted" th:text="${house.getAddress()}">
 													</small>
 
 												</p>
 
 												<p class="card-text">
+
 													<span
 														th:text="${#numbers.formatInteger(house.getPrice(), 1, 'COMMA') + '円 / 泊'}">
 													</span>
+
 												</p>
 
 											</div>
+
 										</div>
 
 									</div>
+
 								</div>
+
 							</a>
+
 						</div>
 
+						<!-- ========================= -->
 						<!-- ページネーション -->
-						<div th:if="${housePage.getTotalPages() > 1}" class="d-flex justify-content-center">
+						<!-- ========================= -->
+						<div th:if="${housePage.getTotalPages() > 1}"
+							class="d-flex justify-content-center">
 
 							<nav aria-label="民宿一覧ページ">
 
 								<ul class="pagination">
 
-									<li class="page-item">
+									<!-- 前 -->
+									<li class="page-item"><span th:if="${housePage.isFirst()}"
+										class="page-link disabled"> 前 </span> <a
+										th:unless="${housePage.isFirst()}"
+										th:href="@{/houses(
+                                                page=${housePage.getNumber()-1},
+                                                keyword=${keyword},
+                                                area=${area},
+                                                price=${price},
+                                                order=${order})}"
+										class="page-link mimpaku-page-link"> 前 </a></li>
 
-										<span th:if="${housePage.isFirst()}" class="page-link disabled">
-											前
-										</span>
+									<!-- ページ番号 -->
+									<li
+										th:each="i : ${#numbers.sequence(0, housePage.getTotalPages()-1)}"
+										class="page-item"><span
+										th:if="${i == housePage.getNumber()}"
+										class="page-link active mimpaku-active" th:text="${i + 1}">
+									</span> <a th:unless="${i == housePage.getNumber()}"
+										th:href="@{/houses(
+                                                page=${i},
+                                                keyword=${keyword},
+                                                area=${area},
+                                                price=${price},
+                                                order=${order})}"
+										class="page-link mimpaku-page-link" th:text="${i + 1}"> </a></li>
 
-										<a th:unless="${housePage.isFirst()}"
-											th:href="@{/houses(page=${housePage.getNumber() - 1}, keyword=${keyword}, area=${area}, price=${price})}"
-											class="page-link mimpaku-page-link">
-											前
-										</a>
-
-									</li>
-
-									<li th:each="i : ${#numbers.sequence(0, housePage.getTotalPages() - 1)}"
-										class="page-item">
-
-										<span th:if="${i == housePage.getNumber()}"
-											class="page-link active mimpaku-active" th:text="${i + 1}">
-										</span>
-
-										<a th:unless="${i == housePage.getNumber()}"
-											th:href="@{/houses(page=${i}, keyword=${keyword}, area=${area}, price=${price})}"
-											class="page-link mimpaku-page-link" th:text="${i + 1}">
-										</a>
-
-									</li>
-
-									<li class="page-item">
-
-										<span th:if="${housePage.isLast()}" class="page-link disabled">
-											次
-										</span>
-
-										<a th:unless="${housePage.isLast()}"
-											th:href="@{/houses(page=${housePage.getNumber() + 1}, keyword=${keyword}, area=${area}, price=${price})}"
-											class="page-link mimpaku-page-link">
-											次
-										</a>
-
-									</li>
+									<!-- 次 -->
+									<li class="page-item"><span th:if="${housePage.isLast()}"
+										class="page-link disabled"> 次 </span> <a
+										th:unless="${housePage.isLast()}"
+										th:href="@{/houses(
+                                                page=${housePage.getNumber()+1},
+                                                keyword=${keyword},
+                                                area=${area},
+                                                price=${price},
+                                                order=${order})}"
+										class="page-link mimpaku-page-link"> 次 </a></li>
 
 								</ul>
+
 							</nav>
+
 						</div>
 
 					</div>
+
 				</div>
+
 			</div>
+
 		</main>
 
 		<!-- フッター -->
@@ -295,6 +400,7 @@
 
 	</div>
 
+	<!-- JS -->
 	<div th:replace="~{fragment :: scripts}"></div>
 
 </body>

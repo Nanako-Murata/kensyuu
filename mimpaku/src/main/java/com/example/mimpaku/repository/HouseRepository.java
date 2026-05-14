@@ -1,5 +1,7 @@
 package com.example.mimpaku.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,11 +12,17 @@ public interface HouseRepository extends JpaRepository<House, Integer> {
 //名前でも住所でも検索できる！
 	public Page<House> findByNameContainingOrAddressContaining(String nameKeyword, String addressKeyword,
 			Pageable pageable);
-//名前だけで検索したいとき
-//	public Page<House> findByNameContaining(String keyword, Pageable pageable);
-//住所だけで検索したいとき
-//	public Page<House> findByAddressContaining(String area, Pageable pageable);
+
 
 	public Page<House> findByPriceLessThanEqual(Integer price, Pageable pageable);
+	
+	public Page<House> findByAddressContaining(String address, Pageable pageable);
+	
+	public List<House> findTop10ByOrderByCreatedAtDesc();
 
 }
+
+//名前だけで検索したいとき
+//public Page<House> findByNameContaining(String keyword, Pageable pageable);
+//住所だけで検索したいとき
+//public Page<House> findByAddressContaining(String area, Pageable pageable);
