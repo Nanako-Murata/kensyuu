@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.mimpaku.entity.Role;
 import com.example.mimpaku.entity.User;
 import com.example.mimpaku.form.SignupForm;
+import com.example.mimpaku.form.UserEditForm;
 import com.example.mimpaku.repository.RoleRepository;
 import com.example.mimpaku.repository.UserRepository;
 
@@ -50,13 +51,33 @@ public class UserService {
 	public boolean isPasswordSame(String password, String passwordConfirmation) {
 		return password.equals(passwordConfirmation);
 	}
-	
-	//let a new user enable
+
+	// let a new user enable
 	@Transactional
 	public void enableUser(User user) {
 		user.setEnabled(true);
-		//make repository save the user
+		// make repository save the user
 		userRepository.save(user);
+	}
+
+	@Transactional
+	public void update(UserEditForm userEditForm) {
+		User user = userRepository.findById(userEditForm.getId()).orElseThrow();
+		user.setName(userEditForm.getName());
+		user.setFurigana(userEditForm.getFurigana());
+		user.setPostalCode(userEditForm.getPostalCode());
+		user.setAddress(userEditForm.getAddress());
+		user.setPhoneNumber(userEditForm.getPhoneNumber());
+		user.setEmail(userEditForm.getEmail());
+
+		userRepository.save(user);
+	}
+
+	// check if user changes email
+	public boolean isEmailChanged(UserEditForm userEditForm) {
+		User user = userRepository.getReferenceById(userEditForm.getId());
+		return !userEditForm.getEmail().equals(user.getEmail());
+
 	}
 
 }

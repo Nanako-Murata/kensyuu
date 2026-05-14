@@ -6,15 +6,20 @@ html {
 body {
 	height: 100%;
 	margin: 0;
+	font-family: 'Noto Sans JP', sans-serif;
 }
 
 h1 {
 	font-size: 1.5rem;
 }
 
+h3 {
+	font-size: 1.25rem;
+}
+
 a {
 	color: #5196a6;
-	text-decoration: none !important;
+	text-decoration: none;
 }
 
 a:hover {
@@ -62,9 +67,25 @@ footer {
 	background-color: #245f68;
 	transform: translateY(-1px);
 }
-/* ======== ドロップダウン（旧） ======== */
-.moattravel-dropdown-item:active {
+
+/* ======== ドロップダウン ======== */
+.mimpaku-dropdown-item:active {
 	background-color: #5196a6;
+}
+
+/* ======== カード ======== */
+.mimpaku-card-link {
+	transition: opacity 0.3s;
+}
+
+.mimpaku-card-link:hover {
+	opacity: 0.7;
+}
+
+.mimpaku-horizontal-card-image {
+	width: 100%;
+	height: 240px;
+	object-fit: cover;
 }
 
 /* ======== ページネーション ======== */
@@ -86,7 +107,7 @@ footer {
 	white-space: pre-wrap;
 }
 
-/* ======== 危険ボタン（新・強化版） ======== */
+/* ======== 危険ボタン ======== */
 .mimpaku-btn-danger {
 	background-color: #dc3545 !important;
 	color: #fff !important;

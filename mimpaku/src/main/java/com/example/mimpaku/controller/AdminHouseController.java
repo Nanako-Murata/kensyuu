@@ -32,30 +32,51 @@ public class AdminHouseController {
 		this.houseRepository = houseRepository;
 		this.houseService = houseService;
 	}
+//
+//	@GetMapping
+//	public String index(Model model,
+//			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
+//			@RequestParam(name = "keyword", required = false) String keyword) {
+//		Page<House> housePage = houseRepository.findAll(pageable);
+//
+//		if (keyword != null && !keyword.trim().isEmpty()) {
+//			housePage = houseRepository.findByNameContaining(keyword, pageable);
+//
+//		} else {
+//			housePage = houseRepository.findAll(pageable);
+//		}
+//		model.addAttribute("housePage", housePage);
+//		model.addAttribute("keyword", keyword);
+//
+//		return "admin/houses/index";
+//	}
 
-	@GetMapping
-	public String index(Model model,
+	@GetMapping("/index")
+	public String search(
+
+			Model model,
+
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
-			@RequestParam(name = "keyword", required = false) String keyword) {
-		Page<House> housePage = houseRepository.findAll(pageable);
 
-		if (keyword != null && !keyword.isEmpty()) {
-			housePage = houseRepository.findByNameLike("%" + keyword + "%", pageable);
+			@RequestParam(name = "keyword", required = false) String keyword) {
+
+		Page<House> housePage;
+
+		if (keyword != null && !keyword.trim().isEmpty()) {
+
+			housePage = houseRepository.findByNameContainingOrAddressContaining(keyword.trim(), keyword.trim(),
+					pageable);
 
 		} else {
+
 			housePage = houseRepository.findAll(pageable);
+
 		}
+
 		model.addAttribute("housePage", housePage);
 		model.addAttribute("keyword", keyword);
 
 		return "admin/houses/index";
-	}
-
-	@GetMapping("/{id}")
-	public String show(@PathVariable(name = "id") Integer id, Model model) {
-		House house = houseRepository.getReferenceById(id);
-		model.addAttribute("house", house);
-		return "admin/houses/show";
 	}
 
 	@GetMapping("/register")

@@ -25,7 +25,7 @@ public class SignupEventListener {
 	public void onSignupEvent(SignupEvent event) {
 		User user = event.getUser();
 		//make a token
-		String token = UUID.randomUUID().toString();
+		String token = UUID.randomUUID().toString();;
 		//save token -> service -> repository
 		tokenService.createToken(user, token);
 		//make a mail
