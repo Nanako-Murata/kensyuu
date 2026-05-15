@@ -27,8 +27,11 @@
 
 						<div th:if="${param.error}" class="alert alert-danger">
 							メールアドレスまたはパスワードが正しくありません。</div>
-
 						<form th:action="@{/login}" method="post">
+
+							<input type="hidden" th:name="${_csrf.parameterName}"
+								th:value="${_csrf.token}">
+
 							<div class="form-group mb-3">
 								<input type="text" class="form-control" name="username"
 									autocomplete="email" placeholder="メールアドレス" autofocus>
@@ -36,15 +39,14 @@
 
 							<div class="form-group mb-3">
 								<input type="password" class="form-control" name="password"
-									autocomplete="new-password" placeholder="パスワード">
+									autocomplete="current-password" placeholder="パスワード">
 							</div>
 
 							<div class="form-group d-flex justify-content-center my-4">
-
 								<button type="submit" class="btn btn-primary shadow-sm w-100">
 									ログイン</button>
-
 							</div>
+
 						</form>
 
 						<div class="text-center">
