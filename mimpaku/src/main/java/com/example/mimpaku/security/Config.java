@@ -24,8 +24,8 @@ public class Config implements WebMvcConfigurer {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> requests
 				// for all users
-				.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**",
-						"/houses/**", "/login")
+				.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**", "/houses/**",
+						"/login", "/stripe/webhook")
 				.permitAll()
 
 				// only for admin
@@ -43,6 +43,7 @@ public class Config implements WebMvcConfigurer {
 				.logout((logout -> logout
 						// redirect for logging out
 						.logoutSuccessUrl("/?loggedOut").permitAll()));
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/stripe/webhook"));
 		return http.build();
 	}
 

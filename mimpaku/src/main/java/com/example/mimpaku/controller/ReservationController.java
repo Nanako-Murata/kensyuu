@@ -25,23 +25,26 @@ import com.example.mimpaku.form.ReservationInputForm;
 import com.example.mimpaku.form.ReservationRegisterForm;
 import com.example.mimpaku.repository.HouseRepository;
 import com.example.mimpaku.repository.ReservationRepository;
-import com.example.mimpaku.repository.UserRepository;
 import com.example.mimpaku.security.UserDetailsImpl;
 import com.example.mimpaku.service.ReservationService;
+import com.example.mimpaku.service.StripeService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ReservationController {
 	private final ReservationRepository reservationRepository;
 	private final HouseRepository houseRepository;
-	private final UserRepository userRepository;
 	private final ReservationService reservationService;
+	private final StripeService stripeService;
 
 	public ReservationController(ReservationRepository reservationRepository, HouseRepository houseRepository,
-			UserRepository userRepository, ReservationService reservationService) {
+			ReservationService reservationService, StripeService stripeService) {
 		this.reservationRepository = reservationRepository;
 		this.houseRepository = houseRepository;
-		this.userRepository = userRepository;
+
 		this.reservationService = reservationService;
+		this.stripeService = stripeService;
 
 	}
 
@@ -87,7 +90,7 @@ public class ReservationController {
 
 	@GetMapping("/houses/{id}/reservations/confirm")
 	public String confirm(@PathVariable Integer id, @ModelAttribute ReservationInputForm reservationInputForm,
-			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {
+			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model, HttpServletRequest http) {
 		House house = houseRepository.findById(id).orElseThrow();
 		User user = userDetailsImpl.getUser();
 		// チェックイン日を取得
@@ -98,16 +101,18 @@ public class ReservationController {
 		Integer amount = reservationService.calcAmount(checkinDate, checkoutDate, price);
 		ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(house.getId(), user.getId(),
 				checkinDate.toString(), checkoutDate.toString(), reservationInputForm.getNumberOfPeople(), amount);
+		String sessionId = stripeService.createStripeSession(house.getName(), reservationRegisterForm, http);
 		model.addAttribute("house", house);
 		model.addAttribute("reservationRegisterForm", reservationRegisterForm);
+		model.addAttribute("sessionId", sessionId);
 		return "reservations/confirm";
 
 	}
 
-	@PostMapping("/houses/{id}/reservations/create")
-	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
-		reservationService.create(reservationRegisterForm);
-		return "redirect:/reservations?reserved";
-	}
+//	@PostMapping("/houses/{id}/reservations/create")
+//	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
+//		reservationService.create(reservationRegisterForm);
+//		return "redirect:/reservations?reserved";
+//	}
 
 }
