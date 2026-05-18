@@ -17,6 +17,7 @@
 
 		<!-- ヘッダー -->
 		<header th:replace="~{fragment :: header}"></header>
+		<!--======== 前略 ========-->
 
 		<main>
 
@@ -27,51 +28,63 @@
 					<div class="col-xxl-9 col-xl-10 col-lg-11">
 
 						<!-- タイトル -->
-						<div class="text-center mb-4">
+						<h1 class="mb-4 text-center">民宿一覧</h1>
 
-							<h1 class="tonight-title">民宿一覧</h1>
-
-						</div>
-
-						<!-- 検索 + 登録 -->
+						<!-- 検索・登録 -->
 						<div
-							class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+							class="d-flex justify-content-between align-items-end flex-wrap mb-4">
 
 							<!-- 検索フォーム -->
-							<form method="get" th:action="@{/admin/houses}"
-								class="flex-grow-1">
+							<form method="get" th:action="@{/admin/houses}" class="mb-3">
 
 								<div class="input-group">
 
 									<input type="text" class="form-control" name="keyword"
-										th:value="${keyword}" placeholder="民宿名で検索">
+										th:value="${keyword}" placeholder="民宿名">
 
-									<button type="submit" class="btn tonight-btn">検索</button>
+									<button type="submit"
+										class="btn text-white shadow-sm tonight-btn">検索</button>
 
 								</div>
 
 							</form>
 
 							<!-- 登録ボタン -->
-							<a href="#" class="btn tonight-btn shadow-sm"> 登録 </a>
+							<a th:href="@{/admin/houses/register}"
+								class="btn text-white shadow-sm mb-3 tonight-btn"> 登録 </a>
 
 						</div>
 
-						<!-- テーブル -->
-						<div class="table-responsive">
+						<!-- 成功メッセージ -->
+						<div th:if="${successMessage}" class="alert alert-info">
 
-							<table class="table align-middle">
+							<span th:text="${successMessage}"></span>
+
+						</div>
+
+						<!-- 一覧テーブル -->
+						<div class="table-responsive">
+							<!--======== 前略 ========-->
+
+							<table class="table">
 
 								<thead>
 
 									<tr>
 
-										<th>ID</th>
-										<th>民宿名</th>
-										<th>郵便番号</th>
-										<th>住所</th>
-										<th>電話番号</th>
-										<th class="text-center">詳細</th>
+										<th scope="col">ID</th>
+
+										<th scope="col">民宿名</th>
+
+										<th scope="col">郵便番号</th>
+
+										<th scope="col">住所</th>
+
+										<th scope="col">電話番号</th>
+
+										<th scope="col"></th>
+
+										<th scope="col"></th>
 
 									</tr>
 
@@ -83,7 +96,7 @@
 
 										<td th:text="${house.getId()}"></td>
 
-										<td class="fw-bold" th:text="${house.getName()}"></td>
+										<td th:text="${house.getName()}"></td>
 
 										<td th:text="${house.getPostalCode()}"></td>
 
@@ -91,9 +104,54 @@
 
 										<td th:text="${house.getPhoneNumber()}"></td>
 
-										<td class="text-center"><a
-											th:href="@{/admin/houses/{id}(id=${house.id})}"
-											class="tonight-link"> 詳細 </a></td>
+										<td><a th:href="@{/admin/houses/{id}(id=${house.id})}">
+												詳細 </a></td>
+
+										<td><a href="#" class="tonight-link-danger"
+											data-bs-toggle="modal"
+											th:data-bs-target="${'#deleteHouseModal' + house.getId()}">
+
+												削除 </a></td>
+
+										<!-- 削除用モーダル -->
+										<div class="modal fade"
+											th:id="${'deleteHouseModal' + house.getId()}" tabindex="-1"
+											th:aria-labelledby="${'deleteHouseModalLabel' + house.getId()}">
+
+											<div class="modal-dialog">
+
+												<div class="modal-content">
+
+													<div class="modal-header">
+
+														<h5 class="modal-title"
+															th:id="${'deleteHouseModalLabel' + house.getId()}"
+															th:text="${house.getName() + 'を削除してもよろしいですか？'}"></h5>
+
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="閉じる"></button>
+
+													</div>
+
+													<div class="modal-footer">
+
+														<form method="post"
+															th:action="@{/admin/houses/{id}/delete(id=${house.id})}">
+
+															<button type="submit"
+																class="btn tonight-btn-danger text-white shadow-sm">
+
+																削除</button>
+
+														</form>
+
+													</div>
+
+												</div>
+
+											</div>
+
+										</div>
 
 									</tr>
 
@@ -101,45 +159,41 @@
 
 							</table>
 
-						</div>
+							<!--======== 後略 ========-->
 
+
+
+						</div>
 						<!-- ページネーション -->
-						<div th:if="${housePage.getTotalPages() > 1}"
-							class="d-flex justify-content-center mt-4">
+						<nav th:if="${housePage.totalPages > 1}" class="mt-4">
 
-							<nav aria-label="民宿一覧ページ">
+							<ul class="pagination justify-content-center">
 
-								<ul class="pagination">
+								<!-- 前へ -->
+								<li class="page-item"
+									th:classappend="${housePage.first} ? 'disabled'"><a
+									class="page-link"
+									th:href="@{/admin/houses(page=${housePage.number - 1}, keyword=${keyword})}">
+										前へ </a></li>
 
-									<!-- 前へ -->
-									<li class="page-item"><span th:if="${housePage.isFirst()}"
-										class="page-link disabled"> 前 </span> <a
-										th:unless="${housePage.isFirst()}"
-										th:href="@{/admin/houses(page=${housePage.getNumber()-1}, keyword=${keyword})}"
-										class="page-link"> 前 </a></li>
+								<!-- ページ番号 -->
+								<li class="page-item"
+									th:each="i : ${#numbers.sequence(0, housePage.totalPages - 1)}"
+									th:classappend="${i == housePage.number} ? 'active'"><a
+									class="page-link"
+									th:href="@{/admin/houses(page=${i}, keyword=${keyword})}"
+									th:text="${i + 1}"> </a></li>
 
-									<!-- ページ番号 -->
-									<li
-										th:each="i : ${#numbers.sequence(0, housePage.getTotalPages()-1)}"
-										class="page-item"><span
-										th:if="${i == housePage.getNumber()}"
-										class="page-link tonight-active" th:text="${i + 1}"> </span> <a
-										th:unless="${i == housePage.getNumber()}"
-										th:href="@{/admin/houses(page=${i}, keyword=${keyword})}"
-										class="page-link" th:text="${i + 1}"> </a></li>
+								<!-- 次へ -->
+								<li class="page-item"
+									th:classappend="${housePage.last} ? 'disabled'"><a
+									class="page-link"
+									th:href="@{/admin/houses(page=${housePage.number + 1}, keyword=${keyword})}">
+										次へ </a></li>
 
-									<!-- 次へ -->
-									<li class="page-item"><span th:if="${housePage.isLast()}"
-										class="page-link disabled"> 次 </span> <a
-										th:unless="${housePage.isLast()}"
-										th:href="@{/admin/houses(page=${housePage.getNumber()+1}, keyword=${keyword})}"
-										class="page-link"> 次 </a></li>
+							</ul>
 
-								</ul>
-
-							</nav>
-
-						</div>
+						</nav>
 
 					</div>
 
@@ -147,7 +201,12 @@
 
 			</div>
 
+
 		</main>
+
+		<!--======== 後略 ========-->
+
+
 
 		<!-- フッター -->
 		<footer th:replace="~{fragment :: footer}"></footer>
@@ -158,5 +217,4 @@
 	<th:block th:replace="~{fragment :: scripts}"></th:block>
 
 </body>
-
 </html>

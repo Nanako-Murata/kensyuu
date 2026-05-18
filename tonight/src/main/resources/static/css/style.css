@@ -220,3 +220,34 @@ footer {
 .breadcrumb-item.active {
 	color: #8f7a6a;
 }
+
+.tonight-pre-wrap {
+	/* ‰üs•¶š‚Ås‚ğÜ‚è•Ô‚· */
+	white-space: pre-wrap;
+}
+
+.tonight-link-danger {
+	color: #f2594b;
+	transition: 0.1s;
+}
+
+.tonight-link-danger:hover {
+	color: #a63c3c;
+	text-decoration: none;
+}
+
+.tonight-btn-danger {
+	background-color: #f2594b !important;
+	border-color: #f2594b !important;
+	transition: 0.1s;
+}
+
+.tonight-btn-danger:hover {
+	opacity: 0.8;
+}
+
+@media screen and (min-width: 1400px) {
+	.tonight-container {
+		max-width: 1200px;
+	}
+}
