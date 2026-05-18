@@ -1,139 +1,222 @@
+/* ========================================
+   共通
+======================================== */
 html {
 	font-size: 14px;
 }
 
 body {
 	font-family: 'Noto Sans JP', sans-serif;
-	background-color: #f8f6f2;
-	color: #4a4a4a;
-	letter-spacing: 0.03em;
+	background-color: #f8f5f1;
+	color: #5b4636;
 }
 
-/* 見出し */
-h1 {
-	font-size: 2rem;
-	font-weight: 500;
-	color: #3f3a36;
-	letter-spacing: 0.08em;
-}
-
-/* リンク */
 a {
-	color: #8c6f56;
+	color: #8b6b52;
 	text-decoration: none !important;
 	transition: 0.2s;
 }
 
 a:hover {
-	color: #6d5643;
+	color: #6f533f;
 }
 
-/* 全体 */
-footer {
-	width: 100%;
-	height: 70px;
-	position: absolute;
-	bottom: 0;
-	background-color: #ede8e1;
-	border-top: 1px solid #ddd6cd;
+h1 {
+	font-size: 2rem;
+	font-weight: 700;
+	color: #6b4f3b;
+	letter-spacing: 0.05em;
 }
 
+/* ========================================
+   レイアウト
+======================================== */
 .tonight-wrapper {
 	min-height: 100vh;
-	position: relative;
-	padding-bottom: 70px;
-	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
 }
 
-/* ナビゲーション */
+main {
+	flex: 1;
+}
+
+footer {
+	height: 70px;
+	background-color: #ede4da;
+	border-top: 1px solid #ddd2c6;
+}
+
 .tonight-navbar {
-	min-height: 72px;
-	background-color: rgba(255, 255, 255, 0.92) !important;
-	backdrop-filter: blur(10px);
-	border-bottom: 1px solid #ece7df;
+	min-height: 70px;
+	background-color: #fffaf5 !important;
+	border-bottom: 1px solid #f0e5d8;
 }
 
 .tonight-logo {
-	height: 36px;
+	height: 42px;
 }
 
-/* コンテンツ幅 */
 @media screen and (min-width: 1400px) {
 	.tonight-container {
 		max-width: 1200px;
 	}
 }
 
-/* ボタン */
+/* ========================================
+   ボタン
+======================================== */
 .tonight-btn {
-	background: linear-gradient(135deg, #9d7b63, #c6a98b) !important;
+	background: linear-gradient(135deg, #b08968, #9c6f4f) !important;
 	border: none !important;
 	border-radius: 999px;
-	padding: 8px 24px;
+	padding: 9px 22px;
+	color: white !important;
 	font-weight: 500;
 	letter-spacing: 0.05em;
 	transition: 0.25s;
 }
 
 .tonight-btn:hover {
-	opacity: 0.9;
+	background: linear-gradient(135deg, #9c6f4f, #875c3f) !important;
 	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(90, 60, 40, 0.15);
 }
 
-/* テーブル */
+.tonight-outline-btn {
+	border: 1px solid #b08968;
+	border-radius: 999px;
+	color: #8b6b52;
+	padding: 8px 18px;
+	background-color: white;
+	transition: 0.2s;
+}
+
+.tonight-outline-btn:hover {
+	background-color: #b08968;
+	color: white;
+}
+
+/* ========================================
+   検索フォーム
+======================================== */
+.form-control {
+	border-radius: 999px;
+	border: 1px solid #d8c3b3;
+	padding: 10px 16px;
+	background-color: #fffdfb;
+}
+
+.form-control:focus {
+	border-color: #b08968;
+	box-shadow: 0 0 0 0.15rem rgba(176, 137, 104, 0.2);
+}
+
+/* ========================================
+   テーブル
+======================================== */
 .table {
 	background-color: #ffffff;
 	border-radius: 18px;
 	overflow: hidden;
-	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+	box-shadow: 0 4px 18px rgba(120, 90, 60, 0.08);
 }
 
 .table thead {
-	background-color: #f3eee8;
+	background-color: #f1e6db;
 }
 
 .table th {
-	color: #6d6258;
-	font-weight: 500;
-	border-bottom: none;
+	color: #6b4f3b;
+	font-weight: 700;
 	padding: 16px;
+	border-bottom: none;
 }
 
 .table td {
-	padding: 18px 16px;
 	vertical-align: middle;
-	border-color: #f0ece7;
-}
-
-/* 行hover */
-.table tbody tr {
-	transition: 0.2s;
+	padding: 16px;
+	border-color: #f0ebe5;
 }
 
 .table tbody tr:hover {
-	background-color: #faf8f5;
+	background-color: #fcfaf7;
 }
 
-/* フッター */
-footer p {
-	letter-spacing: 0.05em;
-	color: #8b8178 !important;
+/* ========================================
+   ページネーション
+======================================== */
+.pagination {
+	gap: 8px;
 }
 
-/* 全体余白 */
-main {
-	padding-top: 24px;
+.pagination .page-link {
+	border: none;
+	border-radius: 999px !important;
+	background-color: #fff;
+	color: #8b6b52;
+	min-width: 42px;
+	padding: 10px 16px;
+	text-align: center;
+	transition: 0.2s;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* スマホ調整 */
-@media screen and (max-width: 768px) {
-	h1 {
-		font-size: 1.7rem;
-	}
-	.table {
-		font-size: 13px;
-	}
-	.tonight-btn {
-		width: 100%;
-	}
+.pagination .page-link:hover {
+	background-color: #f1e6db;
+	color: #6f533f;
+}
+
+.pagination .page-link:focus {
+	box-shadow: none;
+}
+
+.pagination .page-link:active {
+	background-color: #7d5a43 !important;
+	color: white !important;
+}
+
+.tonight-active {
+	background-color: #9c6f4f !important;
+	color: white !important;
+}
+
+/* ========================================
+   画像
+======================================== */
+.tonight-image {
+	width: 100%;
+	max-height: 420px;
+	object-fit: cover;
+	border-radius: 20px;
+	box-shadow: 0 4px 16px rgba(90, 60, 40, 0.08);
+}
+
+/* ========================================
+   説明文
+======================================== */
+.tonight-pre-wrap {
+	white-space: pre-wrap;
+	line-height: 1.9;
+}
+
+/* ========================================
+   カード
+======================================== */
+.card {
+	background-color: #fffdfb;
+	border: none;
+	border-radius: 18px;
+	box-shadow: 0 4px 16px rgba(90, 60, 40, 0.06);
+}
+
+/* ========================================
+   パンくず
+======================================== */
+.breadcrumb {
+	font-size: 0.95rem;
+}
+
+.breadcrumb-item.active {
+	color: #8f7a6a;
 }

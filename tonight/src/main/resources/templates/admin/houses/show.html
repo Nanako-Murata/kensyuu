@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+
+<!-- meta -->
+<th:block th:replace="~{fragment :: meta}"></th:block>
+
+<!-- styles -->
+<th:block th:replace="~{fragment :: styles}"></th:block>
+
+<title>民宿詳細</title>
+
+</head>
+
+<body>
+
+	<div class="tonight-wrapper">
+
+		<!-- ヘッダー -->
+		<header th:replace="~{fragment :: header}"></header>
+
+		<main>
+
+			<div class="container pt-4 pb-5 tonight-container">
+
+				<div class="row justify-content-center">
+
+					<div class="col-xl-7 col-lg-8 col-md-10">
+
+						<!-- パンくず -->
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';"
+							aria-label="breadcrumb">
+
+							<ol class="breadcrumb mb-0">
+
+								<li class="breadcrumb-item"><a th:href="@{/admin/houses}"
+									class="tonight-link"> 民宿一覧 </a></li>
+
+								<li class="breadcrumb-item active" aria-current="page">
+									民宿詳細</li>
+
+							</ol>
+
+						</nav>
+
+						<!-- タイトル -->
+						<div class="text-center mb-4">
+
+							<h1 class="tonight-title" th:text="${house.getName()}"></h1>
+
+						</div>
+
+						<!-- 編集ボタン -->
+						<div class="d-flex justify-content-end mb-3">
+
+							<a href="#" class="btn tonight-outline-btn"> 編集 </a>
+
+						</div>
+
+						<!-- 画像 -->
+						<div class="mb-4">
+
+							<img th:if="${house.getImageName()}"
+								th:src="@{/storage/__${house.getImageName()}__}"
+								class="img-fluid rounded-4 shadow-sm tonight-image" alt="民宿画像">
+
+							<img th:unless="${house.getImageName()}"
+								th:src="@{/images/noImage.png}"
+								class="img-fluid rounded-4 shadow-sm tonight-image"
+								alt="NO IMAGE">
+
+						</div>
+
+						<!-- 詳細カード -->
+						<div class="card border-0 shadow-sm rounded-4">
+
+							<div class="card-body p-4">
+
+								<!-- ID -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">ID</div>
+
+									<div class="col">
+										<span th:text="${house.getId()}"></span>
+									</div>
+
+								</div>
+
+								<!-- 民宿名 -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">民宿名</div>
+
+									<div class="col">
+										<span th:text="${house.getName()}"></span>
+									</div>
+
+								</div>
+
+								<!-- 説明 -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">説明</div>
+
+									<div class="col">
+
+										<span class="tonight-pre-wrap"
+											th:text="${house.getDescription()}"> </span>
+
+									</div>
+
+								</div>
+
+								<!-- 料金 -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">宿泊料金</div>
+
+									<div class="col">
+
+										<span
+											th:text="${#numbers.formatInteger(house.getPrice(), 1, 'COMMA') + '円'}">
+										</span>
+
+									</div>
+
+								</div>
+
+								<!-- 定員 -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">定員</div>
+
+									<div class="col">
+
+										<span th:text="${house.getCapacity() + '人'}"> </span>
+
+									</div>
+
+								</div>
+
+								<!-- 郵便番号 -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">郵便番号</div>
+
+									<div class="col">
+
+										<span th:text="${house.getPostalCode()}"> </span>
+
+									</div>
+
+								</div>
+
+								<!-- 住所 -->
+								<div class="row mb-3 pb-3 border-bottom">
+
+									<div class="col-4 fw-bold">住所</div>
+
+									<div class="col">
+
+										<span th:text="${house.getAddress()}"> </span>
+
+									</div>
+
+								</div>
+
+								<!-- 電話番号 -->
+								<div class="row">
+
+									<div class="col-4 fw-bold">電話番号</div>
+
+									<div class="col">
+
+										<span th:text="${house.getPhoneNumber()}"> </span>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<footer th:replace="~{fragment :: footer}"></footer>
+
+	</div>
+
+	<!-- scripts -->
+	<th:block th:replace="~{fragment :: scripts}"></th:block>
+
+</body>
+
+</html>
