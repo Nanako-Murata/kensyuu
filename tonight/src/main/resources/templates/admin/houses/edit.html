@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <div th:replace="~{fragment :: meta}"></div>
 
 <div th:replace="~{fragment :: styles}"></div>
 
-<title>民宿情報編集</title>
+<title>施設情報編集</title>
 </head>
 
 <body>
@@ -29,21 +30,21 @@
 
 							<ol class="breadcrumb mb-0">
 
-								<li class="breadcrumb-item"><a th:href="@{/admin/houses}">民宿一覧</a>
-								</li>
+								<li class="breadcrumb-item"><a th:href="@{/admin/houses}">
+										施設一覧 </a></li>
 
 								<li class="breadcrumb-item"><a
 									th:href="@{/admin/houses/__${houseEditForm.getId()}__}">
-										民宿詳細 </a></li>
+										施設詳細 </a></li>
 
 								<li class="breadcrumb-item active" aria-current="page">
-									民宿情報編集</li>
+									施設情報編集</li>
 
 							</ol>
 
 						</nav>
 
-						<h1 class="mb-4 text-center">民宿情報編集</h1>
+						<h1 class="mb-4 text-center">施設情報編集</h1>
 
 						<form method="post"
 							th:action="@{/admin/houses/__${houseEditForm.getId()}__/update}"
@@ -55,7 +56,7 @@
 
 								<div class="col-md-4">
 									<label for="name" class="col-form-label text-md-left fw-bold">
-										民宿名 </label>
+										施設名 </label>
 								</div>
 
 								<div class="col-md-8">
@@ -75,7 +76,7 @@
 								<div class="col-md-4">
 
 									<label for="imageFile"
-										class="col-form-label text-md-left fw-bold"> 民宿画像 </label>
+										class="col-form-label text-md-left fw-bold"> 施設画像 </label>
 
 								</div>
 
@@ -91,7 +92,7 @@
 
 							</div>
 
-							<!-- 選択された画像の表示場所 -->
+							<!-- 画像プレビュー -->
 							<div th:if="${imageName}" class="row" id="imagePreview">
 
 								<img th:src="@{/storage/__${imageName}__}" class="mb-3">
@@ -128,7 +129,7 @@
 								<div class="col-md-4">
 
 									<label for="price" class="col-form-label text-md-left fw-bold">
-										宿泊料金（単位：円） </label>
+										宿泊料金（1泊あたり） </label>
 
 								</div>
 
@@ -148,8 +149,7 @@
 								<div class="col-md-4">
 
 									<label for="capacity"
-										class="col-form-label text-md-left fw-bold"> 定員（単位：人）
-									</label>
+										class="col-form-label text-md-left fw-bold"> 定員人数 </label>
 
 								</div>
 

@@ -26,7 +26,7 @@ create table if not exists users (
 	address varchar(255) not null,
 	phone_number varchar(50) not null,
 	email varchar(50) not null,
-	password varchar(50) not null,
+	password varchar(255) not null,
 	role_id int not null,
 	enabled boolean not null,
 	created_at datetime not null default current_timestamp,

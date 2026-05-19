@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<!-- meta -->
-<th:block th:replace="~{fragment :: meta}"></th:block>
+	<!-- meta -->
+	<th:block th:replace="~{fragment :: meta}"></th:block>
 
-<!-- CSS -->
-<th:block th:replace="~{fragment :: styles}"></th:block>
+	<!-- CSS -->
+	<th:block th:replace="~{fragment :: styles}"></th:block>
 
-<title>民宿一覧</title>
+	<title>施設一覧</title>
 </head>
 
 <body>
@@ -17,7 +18,6 @@
 
 		<!-- ヘッダー -->
 		<header th:replace="~{fragment :: header}"></header>
-		<!--======== 前略 ========-->
 
 		<main>
 
@@ -28,35 +28,46 @@
 					<div class="col-xxl-9 col-xl-10 col-lg-11">
 
 						<!-- タイトル -->
-						<h1 class="mb-4 text-center">民宿一覧</h1>
+						<h1 class="mb-4 text-center">
+							施設一覧
+						</h1>
 
-						<!-- 検索・登録 -->
-						<div
-							class="d-flex justify-content-between align-items-end flex-wrap mb-4">
+						<!-- 検索・追加 -->
+						<div class="d-flex justify-content-between align-items-end flex-wrap mb-4">
 
 							<!-- 検索フォーム -->
-							<form method="get" th:action="@{/admin/houses}" class="mb-3">
+							<form method="get"
+								th:action="@{/admin/houses}"
+								class="mb-3">
 
 								<div class="input-group">
 
-									<input type="text" class="form-control" name="keyword"
-										th:value="${keyword}" placeholder="民宿名">
+									<input type="text"
+										class="form-control"
+										name="keyword"
+										th:value="${keyword}"
+										placeholder="施設名">
 
 									<button type="submit"
-										class="btn text-white shadow-sm tonight-btn">検索</button>
+										class="btn text-white shadow-sm tonight-btn">
+										検索
+									</button>
 
 								</div>
 
 							</form>
 
-							<!-- 登録ボタン -->
+							<!-- 追加ボタン -->
 							<a th:href="@{/admin/houses/register}"
-								class="btn text-white shadow-sm mb-3 tonight-btn"> 登録 </a>
+								class="btn text-white shadow-sm mb-3 tonight-btn">
+								追加
+							</a>
 
 						</div>
 
-						<!-- 成功メッセージ -->
-						<div th:if="${successMessage}" class="alert alert-info">
+						<!-- メッセージ -->
+						<div th:if="${successMessage}"
+							class="alert alert-info">
 
 							<span th:text="${successMessage}"></span>
 
@@ -64,7 +75,6 @@
 
 						<!-- 一覧テーブル -->
 						<div class="table-responsive">
-							<!--======== 前略 ========-->
 
 							<table class="table">
 
@@ -74,7 +84,7 @@
 
 										<th scope="col">ID</th>
 
-										<th scope="col">民宿名</th>
+										<th scope="col">施設名</th>
 
 										<th scope="col">郵便番号</th>
 
@@ -104,18 +114,27 @@
 
 										<td th:text="${house.getPhoneNumber()}"></td>
 
-										<td><a th:href="@{/admin/houses/{id}(id=${house.id})}">
-												詳細 </a></td>
+										<td>
+											<a th:href="@{/admin/houses/{id}(id=${house.id})}">
+												詳細
+											</a>
+										</td>
 
-										<td><a href="#" class="tonight-link-danger"
-											data-bs-toggle="modal"
-											th:data-bs-target="${'#deleteHouseModal' + house.getId()}">
+										<td>
+											<a href="#"
+												class="tonight-link-danger"
+												data-bs-toggle="modal"
+												th:data-bs-target="${'#deleteHouseModal' + house.getId()}">
 
-												削除 </a></td>
+												削除
+
+											</a>
+										</td>
 
 										<!-- 削除用モーダル -->
 										<div class="modal fade"
-											th:id="${'deleteHouseModal' + house.getId()}" tabindex="-1"
+											th:id="${'deleteHouseModal' + house.getId()}"
+											tabindex="-1"
 											th:aria-labelledby="${'deleteHouseModalLabel' + house.getId()}">
 
 											<div class="modal-dialog">
@@ -126,10 +145,14 @@
 
 														<h5 class="modal-title"
 															th:id="${'deleteHouseModalLabel' + house.getId()}"
-															th:text="${house.getName() + 'を削除してもよろしいですか？'}"></h5>
+															th:text="${house.getName() + 'を削除してもよろしいですか？'}">
+														</h5>
 
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="閉じる"></button>
+														<button type="button"
+															class="btn-close"
+															data-bs-dismiss="modal"
+															aria-label="閉じる">
+														</button>
 
 													</div>
 
@@ -141,7 +164,9 @@
 															<button type="submit"
 																class="btn tonight-btn-danger text-white shadow-sm">
 
-																削除</button>
+																削除
+
+															</button>
 
 														</form>
 
@@ -159,37 +184,51 @@
 
 							</table>
 
-							<!--======== 後略 ========-->
-
-
-
 						</div>
+
 						<!-- ページネーション -->
-						<nav th:if="${housePage.totalPages > 1}" class="mt-4">
+						<nav th:if="${housePage.totalPages > 1}"
+							class="mt-4">
 
 							<ul class="pagination justify-content-center">
 
 								<!-- 前へ -->
 								<li class="page-item"
-									th:classappend="${housePage.first} ? 'disabled'"><a
-									class="page-link"
-									th:href="@{/admin/houses(page=${housePage.number - 1}, keyword=${keyword})}">
-										前へ </a></li>
+									th:classappend="${housePage.first} ? 'disabled'">
+
+									<a class="page-link"
+										th:href="@{/admin/houses(page=${housePage.number - 1}, keyword=${keyword})}">
+
+										前へ
+
+									</a>
+
+								</li>
 
 								<!-- ページ番号 -->
 								<li class="page-item"
 									th:each="i : ${#numbers.sequence(0, housePage.totalPages - 1)}"
-									th:classappend="${i == housePage.number} ? 'active'"><a
-									class="page-link"
-									th:href="@{/admin/houses(page=${i}, keyword=${keyword})}"
-									th:text="${i + 1}"> </a></li>
+									th:classappend="${i == housePage.number} ? 'active'">
+
+									<a class="page-link"
+										th:href="@{/admin/houses(page=${i}, keyword=${keyword})}"
+										th:text="${i + 1}">
+									</a>
+
+								</li>
 
 								<!-- 次へ -->
 								<li class="page-item"
-									th:classappend="${housePage.last} ? 'disabled'"><a
-									class="page-link"
-									th:href="@{/admin/houses(page=${housePage.number + 1}, keyword=${keyword})}">
-										次へ </a></li>
+									th:classappend="${housePage.last} ? 'disabled'">
+
+									<a class="page-link"
+										th:href="@{/admin/houses(page=${housePage.number + 1}, keyword=${keyword})}">
+
+										次へ
+
+									</a>
+
+								</li>
 
 							</ul>
 
@@ -201,12 +240,7 @@
 
 			</div>
 
-
 		</main>
-
-		<!--======== 後略 ========-->
-
-
 
 		<!-- フッター -->
 		<footer th:replace="~{fragment :: footer}"></footer>
@@ -217,4 +251,5 @@
 	<th:block th:replace="~{fragment :: scripts}"></th:block>
 
 </body>
+
 </html>

@@ -221,11 +221,9 @@ footer {
 	color: #8f7a6a;
 }
 
-.tonight-pre-wrap {
-	/* 改行文字で行を折り返す */
-	white-space: pre-wrap;
-}
-
+/* ========================================
+   危険リンク・ボタン
+======================================== */
 .tonight-link-danger {
 	color: #f2594b;
 	transition: 0.1s;
@@ -246,8 +244,6 @@ footer {
 	opacity: 0.8;
 }
 
-@media screen and (min-width: 1400px) {
-	.tonight-container {
-		max-width: 1200px;
-	}
+.tonight-dropdown-item:active {
+	background-color: #5196a6;
 }

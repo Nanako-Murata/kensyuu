@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -9,7 +10,7 @@
 <!-- styles -->
 <th:block th:replace="~{fragment :: styles}"></th:block>
 
-<title>民宿詳細</title>
+<title>施設詳細</title>
 
 </head>
 
@@ -35,10 +36,11 @@
 							<ol class="breadcrumb mb-0">
 
 								<li class="breadcrumb-item"><a th:href="@{/admin/houses}"
-									class="tonight-link"> 民宿一覧 </a></li>
+									class="tonight-link"> 施設一覧 </a></li>
 
 								<li class="breadcrumb-item active" aria-current="page">
-									民宿詳細</li>
+
+									施設詳細</li>
 
 							</ol>
 
@@ -55,6 +57,7 @@
 						<div class="d-flex justify-content-end mb-3">
 
 							<a th:href="@{/admin/houses/{id}/edit(id=${house.id})}"> 編集 </a>
+
 						</div>
 
 						<!-- 画像 -->
@@ -62,7 +65,7 @@
 
 							<img th:if="${house.getImageName()}"
 								th:src="@{/storage/__${house.getImageName()}__}"
-								class="img-fluid rounded-4 shadow-sm tonight-image" alt="民宿画像">
+								class="img-fluid rounded-4 shadow-sm tonight-image" alt="施設画像">
 
 							<img th:unless="${house.getImageName()}"
 								th:src="@{/images/noImage.png}"
@@ -82,18 +85,22 @@
 									<div class="col-4 fw-bold">ID</div>
 
 									<div class="col">
+
 										<span th:text="${house.getId()}"></span>
+
 									</div>
 
 								</div>
 
-								<!-- 民宿名 -->
+								<!-- 施設名 -->
 								<div class="row mb-3 pb-3 border-bottom">
 
-									<div class="col-4 fw-bold">民宿名</div>
+									<div class="col-4 fw-bold">施設名</div>
 
 									<div class="col">
+
 										<span th:text="${house.getName()}"></span>
+
 									</div>
 
 								</div>
@@ -112,7 +119,7 @@
 
 								</div>
 
-								<!-- 料金 -->
+								<!-- 宿泊料金 -->
 								<div class="row mb-3 pb-3 border-bottom">
 
 									<div class="col-4 fw-bold">宿泊料金</div>
@@ -188,6 +195,7 @@
 				</div>
 
 			</div>
+
 		</main>
 
 		<!-- フッター -->
