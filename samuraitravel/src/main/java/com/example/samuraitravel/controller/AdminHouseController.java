@@ -21,7 +21,6 @@ import com.example.samuraitravel.form.HouseEditForm;
 import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.service.HouseService;
-import com.example.samuraitravel.form.HouseEditForm;
 
 @Controller
 @RequestMapping("/admin/houses")
@@ -98,4 +97,6 @@ public class AdminHouseController {
 
 		return "admin/houses/edit";
 	}
+
+
 }
