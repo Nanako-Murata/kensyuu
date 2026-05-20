@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<!-- Meta -->
+<div th:replace="~{fragment :: meta}"></div>
+
+<!-- Styles -->
+<div th:replace="~{fragment :: styles}"></div>
+
+<title>予約一覧 | tonight</title>
+
+</head>
+
+<body>
+
+	<div class="tonight-wrapper">
+
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+
+			<div class="container tonight-container py-4 py-lg-5">
+
+				<div class="row justify-content-center">
+
+					<div class="col-xl-10 col-lg-11">
+
+						<!-- パンくず -->
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';"
+							aria-label="breadcrumb">
+
+							<ol class="breadcrumb mb-0">
+
+								<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+
+								<li class="breadcrumb-item active" aria-current="page">
+									予約一覧</li>
+
+							</ol>
+
+						</nav>
+
+						<!-- タイトル -->
+						<div class="text-center mb-4">
+
+							<h1 class="fw-bold">予約一覧</h1>
+
+							<p class="text-muted mb-0">これまでの予約内容を確認できます</p>
+
+						</div>
+
+						<!-- 完了メッセージ -->
+						<div th:if="${param.reserved}"
+							class="alert alert-success border-0 shadow-sm rounded-4 text-center">
+
+							予約が完了しました `( ˶ˆ꒳ˆ˵ )`</div>
+
+						<!-- 予約なし -->
+						<div th:if="${reservationPage.isEmpty()}"
+							class="card border-0 shadow-sm rounded-4">
+
+							<div class="card-body text-center py-5">
+
+								<h3 class="mb-3">まだ予約がありません</h3>
+
+								<p class="text-muted mb-4">気になる民宿を探してみよう ✨</p>
+
+								<a th:href="@{/houses}" class="btn tonight-btn px-4"> 民宿を探す
+								</a>
+
+							</div>
+
+						</div>
+
+						<!-- 予約一覧 -->
+						<div th:unless="${reservationPage.isEmpty()}">
+
+							<div th:each="reservation : ${reservationPage.content}"
+								class="card tonight-house-card mb-4">
+
+								<div class="card-body p-4">
+
+									<div
+										class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+
+										<!-- 左 -->
+										<div>
+
+											<h3 class="mb-2">
+
+												<a th:href="@{/houses/{id}(id=${reservation.house.id})}"
+													class="text-dark" th:text="${reservation.house.name}">
+													民宿名 </a>
+
+											</h3>
+
+											<div class="text-muted small mb-2">
+
+												<span> チェックイン： <span
+													th:text="${reservation.checkinDate}"></span>
+												</span> <br class="d-lg-none"> <span class="ms-lg-3">
+													チェックアウト： <span th:text="${reservation.checkoutDate}"></span>
+												</span>
+
+											</div>
+
+											<div class="small">
+
+												<span class="me-3"> 宿泊人数： <span
+													th:text="${reservation.numberOfPeople}"></span>名
+												</span>
+
+											</div>
+
+										</div>
+
+										<!-- 右 -->
+										<div class="text-lg-end">
+
+											<div class="fw-bold fs-4 mb-3">
+
+												¥ <span
+													th:text="${#numbers.formatInteger(reservation.amount, 1, 'COMMA')}">
+												</span>
+
+											</div>
+
+											<a th:href="@{/houses/{id}(id=${reservation.house.id})}"
+												class="btn tonight-btn"> 宿詳細を見る </a>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<!-- ページネーション -->
+							<div th:if="${reservationPage.totalPages > 1}"
+								class="d-flex justify-content-center mt-5">
+
+								<nav aria-label="予約一覧ページ">
+
+									<ul class="pagination">
+
+										<!-- 前へ -->
+										<li class="page-item"><span
+											th:if="${reservationPage.first}" class="page-link disabled">
+												前 </span> <a th:unless="${reservationPage.first}"
+											th:href="@{/reservations(page=${reservationPage.number - 1})}"
+											class="page-link"> 前 </a></li>
+
+										<!-- ページ -->
+										<li
+											th:each="i : ${#numbers.sequence(0, reservationPage.totalPages - 1)}"
+											class="page-item"><span
+											th:if="${i == reservationPage.number}"
+											class="page-link tonight-active" th:text="${i + 1}"> </span>
+
+											<a th:unless="${i == reservationPage.number}"
+											th:href="@{/reservations(page=${i})}" class="page-link"
+											th:text="${i + 1}"> </a></li>
+
+										<!-- 次へ -->
+										<li class="page-item"><span
+											th:if="${reservationPage.last}" class="page-link disabled">
+												次 </span> <a th:unless="${reservationPage.last}"
+											th:href="@{/reservations(page=${reservationPage.number + 1})}"
+											class="page-link"> 次 </a></li>
+
+									</ul>
+
+								</nav>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+
+	</div>
+
+	<!-- Scripts -->
+	<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+
+</html>
