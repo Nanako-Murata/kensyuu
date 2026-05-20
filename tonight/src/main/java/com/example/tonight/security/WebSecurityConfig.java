@@ -18,10 +18,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebSecurityConfig implements WebMvcConfigurer {
 	@Bean
 	public SecurityFilterChain chain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/", "/login/**", "/signup/**", "/css/**", "/images/**", "/js/**", "/storage/**"
+		http.authorizeHttpRequests((requests) -> requests.requestMatchers("/", "/login/**", "/signup/**", "/css/**",
+				"/images/**", "/js/**", "/storage/**", "/houses/**"
 
-				).permitAll().requestMatchers("/admin/**").hasRole("ADMIN")
+		).permitAll().requestMatchers("/admin/**").hasRole("ADMIN")
 
 				.anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/login").loginProcessingUrl("/login")

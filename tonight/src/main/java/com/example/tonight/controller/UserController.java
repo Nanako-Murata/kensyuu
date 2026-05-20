@@ -48,13 +48,14 @@ public class UserController {
 
 	@PostMapping("/update")
 	public String update(@ModelAttribute @Validated UserEditForm form, BindingResult result,
-			RedirectAttributes attributes) {
-		//true && true で{}を実行！
+			RedirectAttributes attributes, Model model) {
+		// true && true で{}を実行！
 		if (userService.isEmailChanged(form) && userService.isEmailRegistered(form.getEmail())) {
 			FieldError error = new FieldError(result.getObjectName(), "email", "既に登録済みのメールアドレスです");
 			result.addError(error);
 		}
 		if (result.hasErrors()) {
+			model.addAttribute("userEditForm", form);
 			return "user/edit";
 		}
 		userService.update(form);

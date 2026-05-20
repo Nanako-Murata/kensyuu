@@ -1,5 +1,7 @@
 package com.example.tonight.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,4 +11,12 @@ import com.example.tonight.entity.House;
 public interface HouseRepository extends JpaRepository<House, Integer> {
 	public Page<House> findByNameContaining(String keyword, Pageable pageable);
 
+	public Page<House> findByAddressContaining(String ky, Pageable pageable);
+
+	public Page<House> findByNameContainingOrAddressContaining(String namekw, String addresskw, Pageable pageable);
+
+	public Page<House> findByPriceLessThanEqual(Integer price, Pageable pageable);
+	
+	public List<House> findTop10ByOrderByCreatedAtDesc();
+	
 }

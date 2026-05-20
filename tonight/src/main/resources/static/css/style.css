@@ -1,36 +1,42 @@
-/* ========================================
-   共通
-======================================== */
 html {
 	font-size: 14px;
+	scroll-behavior: smooth;
 }
 
 body {
+	margin: 0;
 	font-family: 'Noto Sans JP', sans-serif;
-	background-color: #f8f5f1;
-	color: #5b4636;
+	background-color: #fdfbf8;
+	color: #4b3b2f;
+	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
 }
 
-a {
-	color: #8b6b52;
-	text-decoration: none !important;
-	transition: 0.2s;
-}
-
-a:hover {
-	color: #6f533f;
-}
-
+/* =========================
+   Heading
+========================= */
 h1 {
-	font-size: 2rem;
+	font-size: 1.7rem;
 	font-weight: 700;
-	color: #6b4f3b;
-	letter-spacing: 0.05em;
+	margin-bottom: 1rem;
 }
 
-/* ========================================
-   レイアウト
-======================================== */
+h2 {
+	font-size: 1.45rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+
+h3 {
+	font-size: 1.15rem;
+	font-weight: 700;
+	line-height: 1.5;
+	margin-bottom: 0.5rem;
+}
+
+/* =========================
+   Layout
+========================= */
 .tonight-wrapper {
 	min-height: 100vh;
 	display: flex;
@@ -41,111 +47,250 @@ main {
 	flex: 1;
 }
 
-footer {
-	height: 70px;
-	background-color: #ede4da;
-	border-top: 1px solid #ddd2c6;
+.tonight-container {
+	max-width: 1200px;
 }
 
+/* =========================
+   Navbar
+========================= */
 .tonight-navbar {
-	min-height: 70px;
-	background-color: #fffaf5 !important;
-	border-bottom: 1px solid #f0e5d8;
+	padding: 12px 0;
+	background-color: #ffffff;
+	border-bottom: 1px solid #f0e5da;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	backdrop-filter: blur(8px);
 }
 
 .tonight-logo {
-	height: 42px;
+	height: 32px;
+	width: auto;
+	object-fit: contain;
 }
 
-@media screen and (min-width: 1400px) {
-	.tonight-container {
-		max-width: 1200px;
-	}
-}
-
-/* ========================================
-   ボタン
-======================================== */
-.tonight-btn {
-	background: linear-gradient(135deg, #b08968, #9c6f4f) !important;
-	border: none !important;
-	border-radius: 999px;
-	padding: 9px 22px;
-	color: white !important;
-	font-weight: 500;
-	letter-spacing: 0.05em;
-	transition: 0.25s;
-}
-
-.tonight-btn:hover {
-	background: linear-gradient(135deg, #9c6f4f, #875c3f) !important;
-	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(90, 60, 40, 0.15);
-}
-
-.tonight-outline-btn {
-	border: 1px solid #b08968;
-	border-radius: 999px;
+/* =========================
+   Link
+========================= */
+a {
 	color: #8b6b52;
-	padding: 8px 18px;
-	background-color: white;
+	text-decoration: none !important;
 	transition: 0.2s;
 }
 
-.tonight-outline-btn:hover {
-	background-color: #b08968;
-	color: white;
+a:hover {
+	color: #6f533f;
 }
 
-/* ========================================
-   検索フォーム
-======================================== */
-.form-control {
-	border-radius: 999px;
-	border: 1px solid #d8c3b3;
-	padding: 10px 16px;
-	background-color: #fffdfb;
+/* =========================
+   Search Form
+========================= */
+.tonight-search-form {
+	max-width: 340px;
+	margin: 0 auto;
 }
 
-.form-control:focus {
-	border-color: #b08968;
-	box-shadow: 0 0 0 0.15rem rgba(176, 137, 104, 0.2);
+/* =========================
+   Sidebar
+========================= */
+.tonight-sidebar {
+	position: sticky;
+	top: 90px;
 }
 
-/* ========================================
-   テーブル
-======================================== */
+.tonight-sidebar .card {
+	margin-bottom: 1rem;
+}
+
+/* =========================
+   Button
+========================= */
+.tonight-btn {
+	background: linear-gradient(135deg, #4ea1b3, #5bb8cc) !important;
+	border: none !important;
+	color: #ffffff !important;
+
+	border-radius: 14px;
+	padding: 12px 20px;
+	font-weight: 700;
+	font-size: 1rem;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	transition: 0.25s;
+	box-shadow: 0 4px 12px rgba(78, 161, 179, 0.28);
+}
+
+.tonight-btn:hover {
+	background: linear-gradient(135deg, #3c8b9c, #49a9bd) !important;
+	color: #ffffff !important;
+
+	transform: translateY(-2px);
+
+	box-shadow: 0 8px 18px rgba(78, 161, 179, 0.35);
+}
+
+.tonight-btn:visited {
+	color: #ffffff !important;
+}
+
+.tonight-btn:disabled {
+	background: #cfcfcf !important;
+	color: #ffffff !important;
+	box-shadow: none;
+	cursor: not-allowed;
+}
+
+/* =========================
+   Form
+========================= */
+.form-control, .form-select {
+	border-radius: 12px;
+	border: 1px solid #ddd;
+	padding: 10px 14px;
+	background-color: #ffffff;
+	transition: 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+	border-color: #b38b6d;
+	box-shadow: 0 0 0 0.15rem rgba(156, 111, 79, 0.15);
+}
+
+/* =========================
+   Card
+========================= */
+.card {
+	border: none;
+	border-radius: 18px;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+	transition: 0.25s;
+}
+
+.card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+	background-color: #f6ede6;
+	border-bottom: none;
+	font-weight: 700;
+	color: #6f533f;
+	padding: 1rem 1.2rem;
+}
+
+.card-body {
+	padding: 1.2rem;
+}
+
+.card-title {
+	font-size: 1.15rem;
+	font-weight: 700;
+	line-height: 1.5;
+	color: #4b3b2f;
+}
+
+/* =========================
+   Card Link
+========================= */
+.tonight-card-link {
+	display: block;
+	color: inherit;
+}
+
+/* =========================
+   Image
+========================= */
+
+/* トップページ用 */
+.tonight-vertical-card-image {
+	width: 100%;
+	height: 190px;
+	object-fit: cover;
+	display: block;
+}
+
+/* 一覧ページ用 */
+.tonight-horizontal-card-image, .tonight-house-image, .house-list-image
+	{
+	width: 100%;
+	height: 240px;
+	object-fit: cover;
+	display: block;
+	background-color: #f3f3f3;
+}
+
+/* PC横長カード */
+@media screen and (min-width: 768px) {
+	.tonight-horizontal-card-image, .tonight-house-image, .house-list-image
+		{
+		height: 100%;
+		min-height: 240px;
+	}
+}
+
+/* =========================
+   Price
+========================= */
+.tonight-price {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #4ea1b3;
+}
+
+/* =========================
+   Sort Box
+========================= */
+.tonight-sort-box {
+	width: 180px;
+}
+
+/* =========================
+   Table
+========================= */
 .table {
 	background-color: #ffffff;
 	border-radius: 18px;
 	overflow: hidden;
-	box-shadow: 0 4px 18px rgba(120, 90, 60, 0.08);
-}
-
-.table thead {
-	background-color: #f1e6db;
+	margin-bottom: 0;
 }
 
 .table th {
-	color: #6b4f3b;
+	background-color: #f6ede6;
+	color: #6f533f;
+	width: 140px;
 	font-weight: 700;
-	padding: 16px;
-	border-bottom: none;
+	vertical-align: middle;
+	padding: 1rem;
 }
 
 .table td {
 	vertical-align: middle;
-	padding: 16px;
-	border-color: #f0ebe5;
+	padding: 1rem;
 }
 
-.table tbody tr:hover {
-	background-color: #fcfaf7;
+.table a {
+	display: inline-block;
+	margin-bottom: 4px;
 }
 
-/* ========================================
-   ページネーション
-======================================== */
+/* =========================
+   Alert
+========================= */
+.alert {
+	border: none;
+	border-radius: 14px;
+}
+
+/* =========================
+   Pagination
+========================= */
 .pagination {
 	gap: 8px;
 }
@@ -153,12 +298,8 @@ footer {
 .pagination .page-link {
 	border: none;
 	border-radius: 999px !important;
-	background-color: #fff;
-	color: #8b6b52;
-	min-width: 42px;
+	color: #6f533f;
 	padding: 10px 16px;
-	text-align: center;
-	transition: 0.2s;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
@@ -167,83 +308,59 @@ footer {
 	color: #6f533f;
 }
 
-.pagination .page-link:focus {
-	box-shadow: none;
+.pagination .active .page-link {
+	background-color: #4ea1b3;
+	color: #ffffff;
 }
 
-.pagination .page-link:active {
-	background-color: #7d5a43 !important;
-	color: white !important;
+/* =========================
+   Responsive
+========================= */
+@media screen and (max-width: 991px) {
+	.tonight-sidebar {
+		position: static;
+		top: auto;
+	}
+	.tonight-sort-box {
+		width: 100%;
+		margin-top: 1rem;
+	}
+	.d-flex.justify-content-between {
+		flex-direction: column;
+		align-items: stretch !important;
+	}
 }
 
-.tonight-active {
-	background-color: #9c6f4f !important;
-	color: white !important;
+@media screen and (max-width: 767px) {
+	h1 {
+		font-size: 1.5rem;
+	}
+	h2 {
+		font-size: 1.3rem;
+	}
+	.tonight-horizontal-card-image, .tonight-house-image, .house-list-image
+		{
+		height: 220px;
+		min-height: auto;
+	}
+	.card-body {
+		padding: 1rem;
+	}
+	.table th, .table td {
+		display: block;
+		width: 100%;
+	}
+	.table th {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+	.table td {
+		padding-top: 0.5rem;
+	}
 }
 
-/* ========================================
-   画像
-======================================== */
-.tonight-image {
-	width: 100%;
-	max-height: 420px;
-	object-fit: cover;
-	border-radius: 20px;
-	box-shadow: 0 4px 16px rgba(90, 60, 40, 0.08);
-}
-
-/* ========================================
-   説明文
-======================================== */
-.tonight-pre-wrap {
-	white-space: pre-wrap;
-	line-height: 1.9;
-}
-
-/* ========================================
-   カード
-======================================== */
-.card {
-	background-color: #fffdfb;
-	border: none;
-	border-radius: 18px;
-	box-shadow: 0 4px 16px rgba(90, 60, 40, 0.06);
-}
-
-/* ========================================
-   パンくず
-======================================== */
-.breadcrumb {
-	font-size: 0.95rem;
-}
-
-.breadcrumb-item.active {
-	color: #8f7a6a;
-}
-
-/* ========================================
-   危険リンク・ボタン
-======================================== */
-.tonight-link-danger {
-	color: #f2594b;
-	transition: 0.1s;
-}
-
-.tonight-link-danger:hover {
-	color: #a63c3c;
-	text-decoration: none;
-}
-
-.tonight-btn-danger {
-	background-color: #f2594b !important;
-	border-color: #f2594b !important;
-	transition: 0.1s;
-}
-
-.tonight-btn-danger:hover {
-	opacity: 0.8;
-}
-
-.tonight-dropdown-item:active {
-	background-color: #5196a6;
+@media screen and (min-width: 1400px) {
+	.tonight-container {
+		max-width: 1240px;
+	}
 }

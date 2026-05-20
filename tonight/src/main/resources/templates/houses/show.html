@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<!-- Meta -->
+<div th:replace="~{fragment :: meta}"></div>
+
+<!-- Styles -->
+<div th:replace="~{fragment :: styles}"></div>
+
+<title>民宿詳細 | tonight</title>
+
+</head>
+
+<body>
+
+	<div class="tonight-wrapper">
+
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+
+			<div class="container tonight-container pt-4 pb-5">
+
+				<!-- パンくず -->
+				<nav class="mb-4" style="--bs-breadcrumb-divider: '>';"
+					aria-label="breadcrumb">
+
+					<ol class="breadcrumb mb-0">
+
+						<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+
+						<li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">民宿詳細</li>
+
+					</ol>
+
+				</nav>
+
+				<div class="row justify-content-center">
+
+					<div class="col-xl-10">
+
+						<!-- タイトル -->
+						<h1 class="text-center mb-4" th:text="${house.getName()}">
+
+							民宿名</h1>
+
+						<!-- エラー -->
+						<div th:if="${errorMessage}" class="alert alert-danger">
+
+							<span th:text="${errorMessage}"></span>
+
+						</div>
+
+						<!-- 画像 -->
+						<div class="card mb-4 overflow-hidden">
+
+							<img th:if="${house.getImageName()}"
+								th:src="@{/storage/__${house.getImageName()}__}"
+								class="img-fluid tonight-show-image" alt="民宿画像"> <img
+								th:unless="${house.getImageName()}"
+								th:src="@{/images/noImage.png}"
+								class="img-fluid tonight-show-image" alt="NO IMAGE">
+
+						</div>
+
+						<div class="row">
+
+							<!-- 詳細 -->
+							<div class="col-lg-8 mb-4">
+
+								<div class="card h-100">
+
+									<div class="card-body p-4">
+
+										<h2 class="mb-4">民宿情報</h2>
+
+										<!-- 民宿名 -->
+										<div class="row mb-4 border-bottom pb-3">
+
+											<div class="col-4 fw-bold">民宿名</div>
+
+											<div class="col-8" th:text="${house.getName()}">民宿名</div>
+
+										</div>
+
+										<!-- 説明 -->
+										<div class="row mb-4 border-bottom pb-3">
+
+											<div class="col-4 fw-bold">説明</div>
+
+											<div class="col-8">
+
+												<span class="tonight-pre-wrap"
+													th:text="${house.getDescription()}"> 説明 </span>
+
+											</div>
+
+										</div>
+
+										<!-- 料金 -->
+										<div class="row mb-4 border-bottom pb-3">
+
+											<div class="col-4 fw-bold">宿泊料金</div>
+
+											<div class="col-8">
+
+												<span class="tonight-price"> ¥ <span
+													th:text="${#numbers.formatInteger(house.getPrice(), 1, 'COMMA')}"></span>
+
+												</span>
+
+											</div>
+
+										</div>
+
+										<!-- 定員 -->
+										<div class="row mb-4 border-bottom pb-3">
+
+											<div class="col-4 fw-bold">定員</div>
+
+											<div class="col-8" th:text="${house.getCapacity() + '人'}">
+
+												5人</div>
+
+										</div>
+
+										<!-- 郵便番号 -->
+										<div class="row mb-4 border-bottom pb-3">
+
+											<div class="col-4 fw-bold">郵便番号</div>
+
+											<div class="col-8" th:text="${house.getPostalCode()}">
+
+												000-0000</div>
+
+										</div>
+
+										<!-- 住所 -->
+										<div class="row mb-4 border-bottom pb-3">
+
+											<div class="col-4 fw-bold">住所</div>
+
+											<div class="col-8" th:text="${house.getAddress()}">東京都
+
+											</div>
+
+										</div>
+
+										<!-- 電話番号 -->
+										<div class="row">
+
+											<div class="col-4 fw-bold">電話番号</div>
+
+											<div class="col-8" th:text="${house.getPhoneNumber()}">
+
+												000-0000-0000</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<!-- 予約カード -->
+							<div class="col-lg-4">
+
+								<div class="card tonight-sidebar">
+
+									<div class="card-body p-4">
+
+										<h2 class="mb-3">予約</h2>
+
+										<p class="mb-4">
+
+											<span class="tonight-price"> ¥ <span
+												th:text="${#numbers.formatInteger(house.getPrice(), 1, 'COMMA')}"></span>
+
+											</span> <span class="text-muted"> / 泊 </span>
+
+										</p>
+
+										<!-- 未ログイン -->
+										<div sec:authorize="isAnonymous()">
+
+											<p class="card-text small mb-3">
+
+												予約するには <a th:href="@{/login}"> ログイン </a> が必要です。
+
+											</p>
+
+											<button class="btn tonight-btn w-100" disabled>予約する
+
+											</button>
+
+										</div>
+
+										<!-- ログイン済み -->
+										<div sec:authorize="isAuthenticated()">
+
+											<a
+												th:href="@{/reservations/create/{id}(id=${house.getId()})}"
+												class="btn tonight-btn w-100 py-3"> 予約する </a>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+
+	</div>
+
+	<!-- Scripts -->
+	<div th:replace="~{fragment :: scripts}"></div>
+
+</body>
+
+</html>
