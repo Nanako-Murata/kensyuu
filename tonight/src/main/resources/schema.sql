@@ -33,3 +33,13 @@ create table if not exists users (
 	updated_at datetime not null default current_timestamp on update current_timestamp
 	
 );
+
+create table if not exists verification_tokens(
+	id int not null auto_increment primary key,
+	user_id int not null unique,
+
+	token varchar(255) not null unique,
+	created_at datetime not null default current_timestamp,
+	updated_at datetime not null default current_timestamp on update current_timestamp,
+		foreign key (user_id) references users (id)
+);

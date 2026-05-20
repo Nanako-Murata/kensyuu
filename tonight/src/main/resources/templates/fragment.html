@@ -49,102 +49,104 @@
 <body>
 
 	<!-- Header Fragment -->
-	<th:block th:fragment="header">
+	<!-- ヘッダーの部品化 -->
+	<div th:fragment="header" th:remove="tag">
 
 		<nav
-			class="navbar navbar-expand-lg navbar-light bg-white shadow-sm tonight-navbar">
+			class="navbar navbar-expand-md navbar-light bg-white shadow-sm tonight-navbar">
 
 			<div class="container tonight-container">
 
-				<!-- Logo -->
-				<a class="navbar-brand d-flex align-items-center" th:href="@{/}">
-
-					<img th:src="@{/images/logo.png}" alt="Tonight"
-					class="tonight-logo">
+				<!-- ロゴ -->
+				<a class="navbar-brand" th:href="@{/}"> <img
+					class="tonight-logo me-1" th:src="@{/images/logo.png}"
+					alt="tonight">
 				</a>
 
-				<!-- Hamburger -->
+				<!-- ハンバーガーメニュー -->
 				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
 					aria-label="Toggle navigation">
 
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<!-- Navigation -->
-				<div class="collapse navbar-collapse" id="navbarNav">
+				<!-- ナビゲーション -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-					<ul class="navbar-nav ms-auto align-items-lg-center">
+					<ul class="navbar-nav ms-auto">
 
-						<!-- Guest -->
+						<!-- 未ログイン -->
 						<li class="nav-item" sec:authorize="isAnonymous()"><a
 							class="nav-link" th:href="@{/login}"> ログイン </a></li>
 
 						<li class="nav-item" sec:authorize="isAnonymous()"><a
-							class="btn btn-dark ms-lg-2 px-3 rounded-3" th:href="@{/signup}">
-								会員登録 </a></li>
+							class="nav-link" th:href="@{/signup}"> 会員登録 </a></li>
 
-						<!-- General User -->
+						<!-- 一般ユーザー -->
 						<li class="nav-item dropdown"
 							sec:authorize="hasRole('ROLE_GENERAL')"><a
-							id="navbarDropdownUser" class="nav-link dropdown-toggle" href="#"
-							role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
-								<span sec:authentication="principal.user.name"></span>
+							id="navbarDropdownGeneral" class="nav-link dropdown-toggle"
+							href="#" role="button" data-bs-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false" v-pre> <span
+								sec:authentication="principal.user.name"></span>
 						</a>
 
-							<ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+							<div class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdownGeneral">
 
-								<li><a class="dropdown-item" th:href="@{/mypage}">
-										マイページ </a></li>
+								<a class="dropdown-item tonight-dropdown-item"
+									th:href="@{/user}"> 会員情報 </a>
 
-								<li><hr class="dropdown-divider"></li>
+								<div class="dropdown-divider"></div>
 
-								<li><a class="dropdown-item" href="#"
+								<a class="dropdown-item tonight-dropdown-item"
+									th:href="@{/logout}"
 									onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">
-										ログアウト </a></li>
+                               document.getElementById('logout-form').submit();">
 
-							</ul></li>
+									ログアウト </a>
 
-						<!-- Admin -->
+								<form class="d-none" id="logout-form" th:action="@{/logout}"
+									method="post"></form>
+
+							</div></li>
+
+						<!-- 管理者 -->
 						<li class="nav-item dropdown"
 							sec:authorize="hasRole('ROLE_ADMIN')"><a
 							id="navbarDropdownAdmin" class="nav-link dropdown-toggle"
 							href="#" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false"> 管理者メニュー </a>
+							aria-haspopup="true" aria-expanded="false" v-pre> 管理者メニュー </a>
 
-							<ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+							<div class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdownAdmin">
 
-								<li><a class="dropdown-item" th:href="@{/admin/houses}">
-										民宿一覧 </a></li>
+								<a class="dropdown-item tonight-dropdown-item"
+									th:href="@{/admin/houses}"> 民宿一覧 </a>
 
-								<li><a class="dropdown-item" th:href="@{/admin/users}">
-										会員一覧 </a></li>
+								<div class="dropdown-divider"></div>
 
-								<li><hr class="dropdown-divider"></li>
-
-								<li><a class="dropdown-item" href="#"
+								<a class="dropdown-item tonight-dropdown-item"
+									th:href="@{/logout}"
 									onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">
-										ログアウト </a></li>
+                               document.getElementById('logout-form').submit();">
 
-							</ul></li>
+									ログアウト </a>
+
+								<form class="d-none" id="logout-form" th:action="@{/logout}"
+									method="post"></form>
+
+							</div></li>
 
 					</ul>
 
 				</div>
-
 			</div>
-
 		</nav>
 
-		<!-- Logout Form -->
-		<form id="logout-form" th:action="@{/logout}" method="post"
-			class="d-none"></form>
-
-	</th:block>
+	</div>
 	<!-- ========================================
          Footer
     ========================================= -->

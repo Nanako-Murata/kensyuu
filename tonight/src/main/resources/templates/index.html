@@ -1,5 +1,6 @@
 <!DOCTYPE html>
- <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="UTF-8">
@@ -18,24 +19,44 @@
 		<!-- ヘッダー -->
 		<div th:replace="~{fragment :: header}"></div>
 
+		<!-- ========================================
+         Main
+========================================= -->
 		<main>
 
 			<div class="container pt-4 pb-5 tonight-container">
 
-				<!-- ログイン成功 -->
-				<div th:if="${param.loggedIn}" class="alert alert-info">
-					ログインしました。</div>
+				<!-- Login Success -->
+				<div th:if="${param.loggedIn}"
+					class="alert alert-info alert-dismissible fade show" role="alert">
 
-				<!-- ログアウト成功 -->
-				<div th:if="${param.loggedOut}" class="alert alert-info">
-					ログアウトしました。</div>
+					ログインしました。
 
-				<!-- メインコンテンツ -->
-				<div class="text-center mt-5">
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
 
-					<h1 class="mb-3">Welcome to tonight</h1>
+				</div>
 
-					<p class="text-muted">tonight</p>
+				<!-- Logout Success -->
+				<div th:if="${param.loggedOut}"
+					class="alert alert-info alert-dismissible fade show" role="alert">
+
+					ログアウトしました。
+
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+
+				</div>
+
+				<!-- Signup Success -->
+				<div th:if="${successMessage}"
+					class="alert alert-success alert-dismissible fade show"
+					role="alert">
+
+					<span th:text="${successMessage}"></span>
+
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
 
 				</div>
 
